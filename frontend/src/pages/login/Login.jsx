@@ -1,20 +1,20 @@
 import React from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
-// import axiosInstance from "../../api/axios";
-// import { useHistory } from "react-router-dom";
+import axiosInstance from "../../api/axios";
+import { useHistory } from "react-router-dom";
 
 import styled from "./login.module.css";
 
 const loginValidation = Yup.object().shape({
-  username: Yup.string().required("Email is required"),
-  password: Yup.string()
-    .required("Password is required")
-    .min(12, "password needs to be atleast 12 characters long"),
+  username: Yup.string().required("Username is required"),
+  password: Yup.string(),
+  // .required("Password is required")
+  // .min(12, "password needs to be atleast 12 characters long"),
 });
 
 export const Login = () => {
-  //   const history = useHistory();
+  const history = useHistory();
   return (
     <div className={styled.container}>
       <div className={styled.border}>
@@ -25,21 +25,22 @@ export const Login = () => {
           onSubmit={(values) => {
             console.log(values);
 
-            // axiosInstance
-            //   .post("login", {
-            //     username: values.username,
-            //     password: values.password,
-            //   })
-            //   .then((res) => {
-            //     console.log(res);
-            //     localStorage.setItem("token", res.data["access_token"]);
-            //     history.push("/");
-            //     changeToken();
-            //   })
-            //   .catch((e) => {
-            //     console.log(e);
-            //     alert(e.response.data["message"]);
-            //   });
+            axiosInstance
+              .post("token", {
+                username: values.username,
+                password: values.password,
+              })
+              .then((res) => {
+                localStorage.setItem("access_token", res.data.access);
+                localStorage.setItem("refresh_token", res.data.refresh);
+                axiosInstance.defaults.headers["Authorization"] =
+                  "JWT " + localStorage.getItem("access_token");
+                history.push("/");
+              })
+              .catch((e) => {
+                console.log(e);
+                alert("check console.log");
+              });
           }}
         >
           {({

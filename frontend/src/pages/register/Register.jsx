@@ -2,20 +2,22 @@ import React from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import styled from "./register.module.css";
-// import { useHistory } from "react-router-dom";
+import axiosInstance from "../../api/axios";
+import { useHistory } from "react-router-dom";
 
 const regValidation = Yup.object().shape({
-  username: Yup.string().required("Email is required"),
-  password: Yup.string()
-    .required("Password is required")
-    .min(12, "password needs to be atleast 12 characters long"),
-  passwordConfirmation: Yup.string()
-    .required("Password is required")
-    .min(12, "password needs to be atleast 12 characters long"),
+  username: Yup.string().required("Username is required"),
+  password: Yup.string(),
+  email: Yup.string(),
+  // .required("Password is required")
+  // .min(12, "password needs to be atleast 12 characters long"),
+  passwordConfirmation: Yup.string(),
+  //   .required("Password is required")
+  //   .min(12, "password needs to be atleast 12 characters long"),
 });
 
 export const Register = () => {
-  //   const history = useHistory();
+  const history = useHistory();
   return (
     <div className={styled.container}>
       <div className={styled.border}>
@@ -26,26 +28,26 @@ export const Register = () => {
             username: "",
             password: "",
             passwordConfirmation: "",
+            email: "",
           }}
           onSubmit={(values) => {
-            console.log(values.passwordConfirmation);
             if (values.password === values.passwordConfirmation) {
-              //   axiosInstance
-              //     .post("register", {
-              //       username: values.username,
-              //       password: values.password,
-              //     })
-              //     .then((res) => {
-              //       console.log(res);
-              //       localStorage.setItem("token", res.data["access_token"]);
-              //       history.push("/");
-              //       changeToken();
-              //     })
-              //     .catch((e) => {
-              //       console.log(e);
-              //       alert(e);
-              //       // alert(e.response.data["message"]);
-              //     });
+              axiosInstance
+                .post("register/", {
+                  username: values.username,
+                  password: values.password,
+                  email: values.email,
+                })
+                .then((res) => {
+                  history.push("/login");
+                  console.log(res);
+                  console.log(res.data);
+                })
+                .catch((e) => {
+                  console.log(e);
+                  alert(e);
+                  // alert(e.response.data["message"]);
+                });
             } else {
               alert("passwords do not match");
             }
@@ -71,6 +73,17 @@ export const Register = () => {
                 value={values.username}
               />
               {values.username && touched.username && errors.username}
+              <p>Email:</p>
+              <input
+                className={styled.input}
+                type="email"
+                name="email"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.email}
+              />
+              <br></br>
+              {errors.email && touched.email}
               <p>Password:</p>
               <input
                 className={styled.input}

@@ -1,0 +1,1 @@
+JWT Token Authentication with React: https://www.youtube.com/watch?v=AfYfvjP1hK8&t=2337s

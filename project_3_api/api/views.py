@@ -46,6 +46,7 @@ def post_detail(request, pk):
 
 
 class CustomUserCreate(APIView):
+
     permission_classes = [AllowAny]
 
     def post(self, request):
