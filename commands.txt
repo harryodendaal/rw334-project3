@@ -1,0 +1,19 @@
+python -m venv venv 
+source venv/bin/activate
+pip install -r requirements.txt
+
+docker-compose up
+
+cd to project_3_api
+    python manage.py runserver
+    if gdal error:
+        sudo apt-get install binutils libproj-dev gdal-bin
+    
+    For X unapplied migrations to migrate changes:
+        python3 manage.py makemigrations
+        python3 manage.py migrate
+
+
+cd to frontend
+    npm install
+    npm start

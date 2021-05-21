@@ -1,0 +1,10 @@
+version: '3.4'
+
+services:
+  database:
+    image: 'postgis/postgis'
+    ports:
+      - 5432:5432
+    env_file: database.conf
+    volumes:
+      - /db-data/:/var/lib/postgresql/data/
