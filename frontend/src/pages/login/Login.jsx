@@ -13,7 +13,7 @@ const loginValidation = Yup.object().shape({
   // .min(12, "password needs to be atleast 12 characters long"),
 });
 
-export const Login = () => {
+export const Login = ({ changeToken }) => {
   const history = useHistory();
   return (
     <div className={styled.container}>
@@ -36,6 +36,7 @@ export const Login = () => {
                 axiosInstance.defaults.headers["Authorization"] =
                   "JWT " + localStorage.getItem("access_token");
                 history.push("/");
+                changeToken();
               })
               .catch((e) => {
                 console.log(e);

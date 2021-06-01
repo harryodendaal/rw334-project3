@@ -20,6 +20,7 @@ axiosInstance.interceptors.response.use(
 		return response;
 	},
 	async function (error) {
+		console.log("hello")
 		const originalRequest = error.config;
         
 		if (typeof error.response === 'undefined') {
@@ -38,12 +39,15 @@ axiosInstance.interceptors.response.use(
 			window.location.href = '/login/';
 			return Promise.reject(error);
 		}
+		console.log("hello")
 
 		if (
 			error.response.data.code === 'token_not_valid' &&
 			error.response.status === 401 &&
 			error.response.statusText === 'Unauthorized'
 		) {
+					console.log("hello rom the other side")
+
 			const refreshToken = localStorage.getItem('refresh_token');
 
 			if (refreshToken) {

@@ -1,3 +1,16 @@
+import { FetchPosts } from "../../api/api";
+import { Link } from "react-router-dom";
+
 export const Home = () => {
-  return <h1>This is Home</h1>;
+  return (
+    <>
+      <div>
+        <button>
+          <Link to="postForm"> Create Post</Link>
+        </button>
+        <FetchPosts />
+        {/* <div>{data?.map({ id, title, category, content })}</div> */}
+      </div>
+    </>
+  );
 };

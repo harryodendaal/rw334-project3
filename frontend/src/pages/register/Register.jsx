@@ -16,7 +16,7 @@ const regValidation = Yup.object().shape({
   //   .min(12, "password needs to be atleast 12 characters long"),
 });
 
-export const Register = () => {
+export const Register = ({ changeToken }) => {
   const history = useHistory();
   return (
     <div className={styled.container}>
@@ -40,6 +40,7 @@ export const Register = () => {
                 })
                 .then((res) => {
                   history.push("/login");
+                  changeToken();
                   console.log(res);
                   console.log(res.data);
                 })
