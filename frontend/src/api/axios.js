@@ -50,7 +50,10 @@ axiosInstance.interceptors.response.use(
 
 			const refreshToken = localStorage.getItem('refresh_token');
 
-			if (refreshToken) {
+			// wonky stuff going on here
+			// was if(refreshtoken)
+			if (refreshToken !== 'undefined') {
+				console.log("viola")
 				const tokenParts = JSON.parse(atob(refreshToken.split('.')[1]));
 
 				// exp date in token is expressed in seconds, while now() returns milliseconds:

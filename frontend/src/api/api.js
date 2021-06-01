@@ -1,35 +1,23 @@
 import React, {useState, useEffect} from 'react';
 import axiosInstance from './axios';
-import { Link } from "react-router-dom";
 
-export const  FetchPosts = () => {
-    const [posts, setPosts] = useState([]);
+export const  FetchPosts = async () => {
+    const response = await axiosInstance.get('posts/')
+    if(response.status !== 200) {
+        throw new Error("something went wrong")
+    
+    }
+    return response.data
+}
 
-    useEffect(() => {
-        axiosInstance.get("posts/")
-            .then(res=> {
-                console.log(res)
-                setPosts(res.data)
-            })
-            .catch(err => {
-                console.log(err)
-            })
-    },[])
+export const FetchComments = async () => {
+    const response = await axiosInstance.get('comments/')
+    if(response.status !== 200) {
+        throw new Error("something went wrong")
 
-    return (
-        <div>
-            <ul>
-                {posts.map(post => (
-                    <>
-                        <li key={post.id}> 
-                            <Link to={`/post/${post.id}`}>{post.title}</Link> 
-                        </li>
-                        <br></br>
-                    </>
-                ))}
-            </ul>
-        </div>
-    )
+    }
+
+    return response.data
 }
 
 export const FetchPost = ({id}) => {

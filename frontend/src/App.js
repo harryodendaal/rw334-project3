@@ -4,6 +4,9 @@ import {useState, useEffect} from 'react';
 import {Home,Login,Register, Post, PostForm} from './pages/index';
 import {Navbar} from './components/index'
 import {Route, BrowserRouter as Router} from 'react-router-dom'
+import {QueryClient, QueryClientProvider } from 'react-query'
+
+const queryClient = new QueryClient()
 
 function App() {
   
@@ -21,6 +24,8 @@ function App() {
   }, [token]);
   return (
   <Router>
+    <QueryClientProvider client={queryClient}>
+
       <Navbar token={token} changeTokenState={changeTokenState} />
 
       <Route exact path='/' component= {Home}/>
@@ -36,6 +41,7 @@ function App() {
       <Route exact path="/postForm/:id?">
         <PostForm/>
       </Route>
+    </QueryClientProvider>
     </Router>
   );
 }
