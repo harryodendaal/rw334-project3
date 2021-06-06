@@ -26,6 +26,9 @@ const AuthenticatedLinks = ({ changeToken }) => {
         <Link to="">Posts Feed</Link>
       </li>
       <li>
+        <Link to="/groups">Group Feed</Link>
+      </li>
+      <li>
         <a href="/" onClick={handleClick}>
           Logout
         </a>

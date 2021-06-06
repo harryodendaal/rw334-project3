@@ -5,9 +5,10 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .models import Post, Comment, ApiGroup
-from .serializers import  PostSerializer, RegisterUserSerializer, ApiGroupSerializer, UserSerializer, CommentSerializer
+from .serializers import PostSerializer, RegisterUserSerializer, ApiGroupSerializer, UserSerializer, CommentSerializer
 
 User = get_user_model()
+
 
 @api_view(['GET', 'POST'])
 def apigroup_list(request):
@@ -36,7 +37,8 @@ def apigroup_detail(request, pk):
         return Response(serializer.data)
 
     elif request.method == 'PUT':
-        serializer = ApiGroupSerializer(apigroup, data=request.data, partial=True)
+        serializer = ApiGroupSerializer(
+            apigroup, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -45,6 +47,7 @@ def apigroup_detail(request, pk):
     elif request.method == 'DELETE':
         apigroup.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
 
 @api_view(['GET', 'POST'])
 def user_list(request):
@@ -82,6 +85,7 @@ def user_detail(request, pk):
     elif request.method == 'DELETE':
         user.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
 
 @api_view(['GET', 'POST'])
 def post_list(request):
@@ -159,6 +163,7 @@ def comment_detail(request, pk):
 
     elif request.method == 'PUT':
         serializer = CommentSerializer(comment, data=request.data)
+        print('hello')
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)

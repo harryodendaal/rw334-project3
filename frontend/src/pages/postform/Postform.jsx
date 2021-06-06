@@ -14,13 +14,13 @@ const postFormValidation = Yup.object().shape({
 });
 
 export const PostForm = () => {
-  let { id } = useParams();
+  let { groupId, postId } = useParams();
   const [updateForm, setUpdateForm] = useState(false);
   useEffect(() => {
-    if (id !== undefined) {
+    if (postId !== undefined) {
       setUpdateForm(true);
     }
-  }, [id]);
+  }, [postId]);
   const history = useHistory();
   return (
     <div className={styled.container}>
@@ -34,17 +34,18 @@ export const PostForm = () => {
 
             if (updateForm) {
               axiosInstance
-                .put(`posts/${id}/`, {
+                .put(`posts/${postId}/`, {
                   title: values.title,
                   category: values.category,
                   content: values.content,
+                  group: groupId,
                 })
                 .then((res) => {
                   // localStorage.setItem("access_token", res.data.access);
                   // localStorage.setItem("refresh_token", res.data.refresh);
                   // axiosInstance.defaults.headers["Authorization"] =
                   //   "JWT " + localStorage.getItem("access_token");
-                  history.push(`/post/${res.data.id}`);
+                  history.push(`/group/${groupId}`);
                   // changeToken();
                 })
                 .catch((e) => {
@@ -57,13 +58,14 @@ export const PostForm = () => {
                   title: values.title,
                   category: values.category,
                   content: values.content,
+                  group: groupId,
                 })
                 .then((res) => {
                   // localStorage.setItem("access_token", res.data.access);
                   // localStorage.setItem("refresh_token", res.data.refresh);
                   // axiosInstance.defaults.headers["Authorization"] =
                   //   "JWT " + localStorage.getItem("access_token");
-                  history.push(`/post/${res.data.id}`);
+                  history.push(`/group/${groupId}`);
                   // changeToken();
                 })
                 .catch((e) => {
