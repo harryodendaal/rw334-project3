@@ -166,3 +166,4 @@ yarn-debug.log*
 yarn-error.log*
 
 upload/
+media/
