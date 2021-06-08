@@ -39,7 +39,6 @@ axiosInstance.interceptors.response.use(
 			window.location.href = '/login/';
 			return Promise.reject(error);
 		}
-		console.log("hello")
 
 		if (
 			error.response.data.code === 'token_not_valid' &&

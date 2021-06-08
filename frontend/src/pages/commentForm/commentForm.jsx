@@ -5,18 +5,23 @@ import * as Yup from "yup";
 import axiosInstance from "../../api/axios";
 import { useParams } from "react-router";
 import { useState } from "react";
+import { useHistory } from "react-router-dom";
 
 const CommentFormValidation = Yup.object().shape({
   content: Yup.string().required("content is required"),
 });
 
-export const CommentForm = ({ createComment, commentInfo }) => {
-  const [creatingComment, setCreatingComment] = useState(createComment);
-  useEffect(() => {
-    setCreatingComment(createComment);
-  }, [commentInfo]);
+//postId and then commentId if updating
+export const CommentForm = () => {
+  const history = useHistory();
+  let { postId, commentId } = useParams();
 
-  let { id } = useParams();
+  const [creatingComment, setCreatingComment] = useState(true);
+  useEffect(() => {
+    if (commentId) {
+      setCreatingComment(false);
+    }
+  }, [commentId]);
 
   return (
     <div className={styled.container}>
@@ -33,7 +38,7 @@ export const CommentForm = ({ createComment, commentInfo }) => {
               axiosInstance
                 .post(`comments/`, {
                   content: values.content,
-                  post: id,
+                  post: postId,
                 })
                 .then((res) => {
                   console.log(res);
@@ -44,9 +49,8 @@ export const CommentForm = ({ createComment, commentInfo }) => {
                 });
             } else {
               axiosInstance
-                .put(`comments/${commentInfo[0].id}/`, {
+                .put(`comments/${commentId}/`, {
                   content: values.content,
-                  post: id,
                 })
                 .then((res) => {
                   console.log(res);
@@ -56,6 +60,8 @@ export const CommentForm = ({ createComment, commentInfo }) => {
                   alert("check console.log");
                 });
             }
+
+            history.push(`/post/${postId}`);
           }}
         >
           {({

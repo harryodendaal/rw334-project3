@@ -1,10 +1,11 @@
 import "./App.css"
 
 import {useState, useEffect} from 'react';
-import {Home,Login,Register, Post, PostForm} from './pages/index';
+import {Home,Login,Register, Post, PostForm, Groups, Group, CommentForm} from './pages/index';
 import {Navbar} from './components/index'
 import {Route, BrowserRouter as Router} from 'react-router-dom'
 import {QueryClient, QueryClientProvider } from 'react-query'
+import { GroupForm } from "./pages/groupform/Groupform";
 
 const queryClient = new QueryClient()
 
@@ -29,6 +30,9 @@ function App() {
       <Navbar token={token} changeTokenState={changeTokenState} />
 
       <Route exact path='/' component= {Home}/>
+      <Route exact path="/groups">
+        <Groups/>
+      </Route>
       <Route exact path='/login'>
         <Login changeToken={changeTokenState}/>
       </Route>
@@ -38,8 +42,17 @@ function App() {
       <Route exact path="/post/:id">
         <Post/>
       </Route>
-      <Route exact path="/postForm/:id?">
+      <Route exact path="/postForm/:groupId/:postId?">
         <PostForm/>
+      </Route>
+      <Route exact path="/group/:id">
+        <Group/>
+      </Route>
+      <Route exact path="/groupForm">
+        <GroupForm/>
+      </Route>
+      <Route exact path="/commentForm/:postId/:commentId?">
+        <CommentForm/>
       </Route>
     </QueryClientProvider>
     </Router>
