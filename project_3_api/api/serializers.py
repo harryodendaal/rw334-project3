@@ -3,15 +3,23 @@ from rest_framework import serializers
 from .models import Post, User, Comment, ApiGroup
 
 
-class ApiGroupSerializer(serializers.ModelSerializer):
+class ApiGroupCreateSerializer(serializers.ModelSerializer):
     posts = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
-
+    
     class Meta:
         model = ApiGroup
-        fields = ['id', 'name', 'timestamp', 'users', 'posts']
+        fields = ['id', 'name', 'timestamp', 'users', 'posts', 'admins']
+        read_only_fields = ['admins']
+
+class ApiGroupUpdateSerializer(serializers.ModelSerializer):
+    posts = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    
+    class Meta:
+        model = ApiGroup
+        fields = ['id', 'name', 'timestamp', 'users', 'posts', 'admins']
 
 class PostSerializer(serializers.ModelSerializer):
-    # user = serializers.ReadOnlyField(source='user.username')
+    user = serializers.ReadOnlyField(source='user.id')
     comments = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
 
     class Meta:

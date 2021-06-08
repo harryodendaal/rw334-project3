@@ -6,20 +6,23 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import generics
 from .models import Post, Comment, ApiGroup
-from .serializers import  PostSerializer, RegisterUserSerializer, ApiGroupSerializer, UserSerializer, CommentSerializer
-from .permissions import IsOwnerOrReadOnly
+from .serializers import  PostSerializer, RegisterUserSerializer, ApiGroupCreateSerializer, ApiGroupUpdateSerializer, UserSerializer, CommentSerializer
+from .permissions import IsOwnerOrReadOnly, IsGroupAdminOrReadOnly
 
 User = get_user_model()
 
 class GroupList(generics.ListCreateAPIView):
     queryset = ApiGroup.objects.all()
-    serializer_class = ApiGroupSerializer
-    permission_classes = [IsAuthenticated]
+    serializer_class = ApiGroupCreateSerializer
+    permission_classes = [IsAuthenticated, IsGroupAdminOrReadOnly]
+
+    def perform_create(self, serializer):
+        serializer.save(admins=[self.request.user])
 
 class GroupDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = ApiGroup.objects.all()
-    serializer_class = ApiGroupSerializer
-    permission_classes = [IsAuthenticated]
+    serializer_class = ApiGroupUpdateSerializer
+    permission_classes = [IsAuthenticated, IsGroupAdminOrReadOnly]
 
     def put(self, request, *args, **kwargs):
         return self.partial_update(request, *args, **kwargs)
@@ -40,7 +43,7 @@ class UserDetail(generics.RetrieveUpdateDestroyAPIView):
 class PostList(generics.ListCreateAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
@@ -48,7 +51,7 @@ class PostList(generics.ListCreateAPIView):
 class PostDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
 
     def put(self, request, *args, **kwargs):
         return self.partial_update(request, *args, **kwargs)

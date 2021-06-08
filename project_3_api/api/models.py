@@ -9,9 +9,11 @@ from django.contrib.gis.geos import Point
 
 class ApiGroup(models.Model):
     users = models.ManyToManyField(
-        settings.AUTH_USER_MODEL, related_name='api_groups', null=False)
+        settings.AUTH_USER_MODEL, related_name='api_groups')
     name = models.CharField(max_length=150, null=True)
     timestamp = models.DateTimeField(auto_now_add=True)
+    admins = models.ManyToManyField(
+        settings.AUTH_USER_MODEL, related_name='admin_groups')
 
     class Meta:
         ordering = ['-timestamp']
@@ -19,10 +21,10 @@ class ApiGroup(models.Model):
 
 class Post(models.Model):
     group = models.ForeignKey(
-        ApiGroup, related_name='posts', on_delete=models.CASCADE, null=False)
+        ApiGroup, related_name='posts', on_delete=models.CASCADE)
     location = models.PointField(geography=True, default=Point(0.0, 0.0))
     user = models.ForeignKey(
-        settings.AUTH_USER_MODEL, related_name='posts', on_delete=models.CASCADE, null=False)
+        settings.AUTH_USER_MODEL, related_name='posts', on_delete=models.CASCADE)
     title = models.CharField(max_length=130)
     category = models.CharField(max_length=130, null=True)
     content = models.TextField(null=True, blank=True)
