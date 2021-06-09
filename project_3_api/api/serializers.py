@@ -1,6 +1,6 @@
 from django.db.models import fields
 from rest_framework import serializers
-from .models import Post, User, Comment, ApiGroup
+from .models import Chat, Message, Post, User, Comment, ApiGroup
 
 
 class ApiGroupCreateSerializer(serializers.ModelSerializer):
@@ -62,3 +62,17 @@ class UserSerializer(serializers.ModelSerializer):
             instance.set_password(password)
         instance.save()
         return instance
+
+class MessageSerializer(serializers.ModelSerializer):
+    user = serializers.ReadOnlyField(source='user.username')
+
+    class Meta:
+        model = Message
+        fields = ['id', 'user', 'chat', 'content', 'timestamp']
+
+class ChatSerializer(serializers.ModelSerializer):
+    messages = MessageSerializer(many=True)
+
+    class Meta:
+        model = Chat
+        fields = ['id', 'name', 'messages']

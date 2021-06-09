@@ -56,3 +56,22 @@ class Comment(models.Model):
 
     class Meta:
         ordering = ['-timestamp']
+
+class Chat(models.Model):
+    name = models.CharField(max_length=130)
+
+    def __str__(self):
+        return f'{self.pk}'
+
+class Message(models.Model):
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, related_name='messages', on_delete=models.CASCADE)
+    chat = models.ForeignKey(Chat, related_name='messages', on_delete=models.CASCADE)
+    content = models.TextField()
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.user.username}: {self.content}'
+
+    class Meta:
+        ordering = ['timestamp']

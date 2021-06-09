@@ -12,4 +12,10 @@ urlpatterns = [
     path('users/', views.UserList.as_view()),
     path('users/<int:pk>/', views.UserDetail.as_view()),
     path('register/', views.CustomUserCreate.as_view(), name='create_user'),
+    # path('chat/', views.chat_index, name='chat_index'),
+    # path('chat/<str:room_name>/', views.room, name='room'),
+    path('messages/', views.MessageList.as_view()),
+    path('messages/<int:pk>/', views.MessageDetail.as_view()),
+    path('chats/', views.ChatList.as_view()),
+    path('chats/<int:pk>/', views.ChatDetail.as_view()),
 ]

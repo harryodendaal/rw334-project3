@@ -243,3 +243,12 @@ export const FetchPostsForGroup = ({id}) => {
         </div>
     );
 }
+
+export const  FetchChats = async () => {
+    const response = await axiosInstance.get('chats/')
+    if(response.status !== 200) {
+        throw new Error("something went wrong")
+    
+    }
+    return response.data
+}

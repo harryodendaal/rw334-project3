@@ -1,12 +1,13 @@
 from django.contrib.auth import get_user_model
+from django.shortcuts import render
 from rest_framework import status
 from rest_framework.permissions import AllowAny, IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import generics
-from .models import Post, Comment, ApiGroup
-from .serializers import  PostSerializer, RegisterUserSerializer, ApiGroupCreateSerializer, ApiGroupUpdateSerializer, UserSerializer, CommentSerializer
+from .models import Chat, Message, Post, Comment, ApiGroup
+from .serializers import  ChatSerializer, MessageSerializer, PostSerializer, RegisterUserSerializer, ApiGroupCreateSerializer, ApiGroupUpdateSerializer, UserSerializer, CommentSerializer
 from .permissions import IsOwnerOrReadOnly, IsGroupAdminOrReadOnly
 
 User = get_user_model()
@@ -41,12 +42,19 @@ class UserDetail(generics.RetrieveUpdateDestroyAPIView):
         return self.partial_update(request, *args, **kwargs)
 
 class PostList(generics.ListCreateAPIView):
-    queryset = Post.objects.all()
     serializer_class = PostSerializer
     permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
+
+    def get_queryset(self):
+        queryset = Post.objects.all()
+        # Optionally filters by username
+        username = self.request.query_params.get('username')
+        if username is not None:
+            queryset = queryset.filter(user__username=username)
+        return queryset
 
 class PostDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Post.objects.all()
@@ -83,3 +91,28 @@ class CustomUserCreate(APIView):
             if newuser:
                 return Response(status=status.HTTP_201_CREATED)
         return Response(reg_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+# def chat_index(request):
+#     return render(request, "api/index.html")
+
+# def room(request, room_name):
+#     return render(request, 'api/room.html', {
+#         'room_name': room_name
+#     })
+
+class ChatList(generics.ListCreateAPIView):
+    queryset = Chat.objects.all()
+    serializer_class = ChatSerializer
+    filterset_fields = ['name']
+
+class ChatDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Chat.objects.all()
+    serializer_class = ChatSerializer
+
+class MessageList(generics.ListCreateAPIView):
+    queryset = Message.objects.all()
+    serializer_class = MessageSerializer
+
+class MessageDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Message.objects.all()
+    serializer_class = MessageSerializer

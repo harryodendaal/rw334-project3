@@ -6,3 +6,4 @@ export * from './postform/Postform';
 export * from './groups/Groups';
 export * from './Group/Group';
 export * from './commentForm/commentForm';
+export * from './chat/Chat';

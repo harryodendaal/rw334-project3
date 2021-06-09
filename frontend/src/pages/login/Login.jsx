@@ -33,6 +33,7 @@ export const Login = ({ changeToken }) => {
               .then((res) => {
                 localStorage.setItem("access_token", res.data.access);
                 localStorage.setItem("refresh_token", res.data.refresh);
+                localStorage.setItem("username", values.username);
                 axiosInstance.defaults.headers["Authorization"] =
                   "JWT " + localStorage.getItem("access_token");
                 history.push("/");

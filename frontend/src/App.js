@@ -1,7 +1,7 @@
 import "./App.css"
 
 import {useState, useEffect} from 'react';
-import {Home,Login,Register, Post, PostForm, Groups, Group, CommentForm} from './pages/index';
+import {Home,Login,Register, Post, PostForm, Groups, Group, CommentForm, Chat} from './pages/index';
 import {Navbar} from './components/index'
 import {Route, BrowserRouter as Router} from 'react-router-dom'
 import {QueryClient, QueryClientProvider } from 'react-query'
@@ -30,6 +30,7 @@ function App() {
       <Navbar token={token} changeTokenState={changeTokenState} />
 
       <Route exact path='/' component= {Home}/>
+      <Route exact path='/chat' component= {Chat}/>
       <Route exact path="/groups">
         <Groups/>
       </Route>
