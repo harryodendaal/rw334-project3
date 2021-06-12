@@ -6,11 +6,13 @@
   margin-top: 20px;
 }
 
-b {
-  margin-right: 150px;
+.bold {
   font-family: "Lucida Console", monospace;
   text-align: left;
-  color: rgb(24, 27, 122);
+  color: rgb(175, 0, 0);
+  font-weight: normal;
+  margin-left: 20%;
+  font-size: 95%;
 }
 
 .input {
@@ -18,12 +20,15 @@ b {
 }
 
 .border {
-  border: outset 10px;
+  border: 10px groove rgb(121, 116, 116);
 }
 
-h2 {
-  margin-left: 10px;
+.heading {
   font-family: "Lucida Console", monospace;
-  color: rgb(24, 27, 122);
+  color: rgb(175, 0, 0);
   font-size: xx-large;
+}
+
+.button {
+  margin: 10px;
 }
