@@ -9,6 +9,7 @@ export const  FetchPosts = async () => {
         throw new Error("something went wrong")
     
     }
+    console.log(response.data)
     return response.data
 }
 
@@ -26,6 +27,7 @@ export const FetchGroups = async () => {
     if(response.status!==200){
         throw new Error("Something went wrong")
     }
+
     return response.data
 }
 
@@ -84,7 +86,6 @@ export const FetchPost = ({id, groupId}) => {
 }
 
 export const FetchComment = ({id, postId}) => {
-const history = useHistory();
     var user_id = GetUserId()
     const [comment, setComment] = useState({})
     const [isUserId, setIsUserId] = useState(false)
@@ -140,8 +141,6 @@ const history = useHistory();
 }
 export const FetchGroup = ({id}) => {
     const [group, setGroup] = useState({})
-    var user_id = GetUserId()
-    const [isUserId, setIsUserId] = useState(false)
 
     useEffect(() => {
         axiosInstance.get(`groups/${id}`)
@@ -154,39 +153,11 @@ export const FetchGroup = ({id}) => {
             })
     },[id])
 
-    useEffect(() => {
-        console.log(group.user)
-        if(user_id===group.user){
-            setIsUserId(true)
-            console.log("hello")
-        } else {
-            console.log("not hello")
-            setIsUserId(false)
 
-        }
-    }, [user_id, group.user])
-
-    // const handleDeleteGroupClick = () => {
-    //     axiosInstance
-    //         .delete(`groups/${id}`)
-    //         .then((res) => {
-    //             console.log(res)
-    //         })
-    //         .catch((err) => {
-    //             console.log(err)
-    //         })
-
-    //         window.location.reload(false)
-    // }
 
     return (
         <div>
             <h3>{group.name}</h3>            
-            {/* {isUserId ?
-                <>
-                    <button onClick={handleDeleteGroupClick}>Delete</button>
-                </>:null
-            } */}
         </div>
     )
 }

@@ -20,7 +20,6 @@ axiosInstance.interceptors.response.use(
 		return response;
 	},
 	async function (error) {
-		console.log("hello")
 		const originalRequest = error.config;
         
 		if (typeof error.response === 'undefined') {
@@ -45,17 +44,13 @@ axiosInstance.interceptors.response.use(
 			error.response.status === 401 &&
 			error.response.statusText === 'Unauthorized'
 		) {
-					console.log("hello rom the other side")
 
 			const refreshToken = localStorage.getItem('refresh_token');
 
 			// wonky stuff going on here
 			// was if(refreshtoken)
 			if (refreshToken !== 'undefined') {
-				console.log("viola")
 				const tokenParts = JSON.parse(atob(refreshToken.split('.')[1]));
-
-				// exp date in token is expressed in seconds, while now() returns milliseconds:
 				const now = Math.ceil(Date.now() / 1000);
 				console.log(tokenParts.exp);
 
@@ -87,6 +82,7 @@ axiosInstance.interceptors.response.use(
 		}
 
 		// specific error handling done elsewhere
+		console.log(error)
 		return Promise.reject(error);
 	}
 );
