@@ -1,4 +1,4 @@
-.container {
+/*.container {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -30,4 +30,53 @@ li {
 li:hover {
   background-color: #ccc;
   color: rgb(255, 255, 255);
+}*/
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #1b1a1afb;
+  margin-top: -8px;
+  margin-left: -8px;
+  width: 100vw;
 }
+
+a {
+  color: rgb(175, 0, 0);
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+  font-family: "Lucida Console", monospace;
+  text-align: left;
+}
+
+li {
+  display: inline;
+  list-style: none;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+li:hover {
+  background-color: rgb(46, 45, 45);
+  color: rgba(3, 0, 0, 0.486);
+}
+
+.ul {
+  margin-left: 27vw;
+}
+
+.box {
+  display: inline;
+  margin-inline-end: 0%;
+  margin-left: 20vw;
+}
+
+.searchButton {
+  cursor: pointer;
+}
+
