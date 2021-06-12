@@ -21,7 +21,7 @@ export const Register = ({ changeToken }) => {
   return (
     <div className={styled.container}>
       <div className={styled.border}>
-        <h2>Register</h2>
+        <h2 className={styled.heading}>Register</h2>
         <Formik
           validationSchema={regValidation}
           initialValues={{
@@ -64,7 +64,7 @@ export const Register = ({ changeToken }) => {
             isSubmitting,
           }) => (
             <form onSubmit={handleSubmit}>
-              <p>Username:</p>
+              <p className={styled.text}>Username:</p>
               <input
                 className={styled.input}
                 type="text"
@@ -74,7 +74,7 @@ export const Register = ({ changeToken }) => {
                 value={values.username}
               />
               {values.username && touched.username && errors.username}
-              <p>Email:</p>
+              <p className={styled.text}>Email:</p>
               <input
                 className={styled.input}
                 type="email"
@@ -85,7 +85,7 @@ export const Register = ({ changeToken }) => {
               />
               <br></br>
               {errors.email && touched.email}
-              <p>Password:</p>
+              <p className={styled.text}>Password:</p>
               <input
                 className={styled.input}
                 type="password"
@@ -96,7 +96,7 @@ export const Register = ({ changeToken }) => {
               />
               <br></br>
               {errors.password && touched.password && errors.password}
-              <p>Password Confirmation:</p>
+              <p className={styled.text}>Password Confirmation:</p>
               <input
                 className={styled.input}
                 type="password"
@@ -108,7 +108,7 @@ export const Register = ({ changeToken }) => {
               <br></br>
               {errors.passwordConfirmation && touched.passwordConfirmation}
 
-              <button type="submit">Submit</button>
+              <button className={styled.button} type="submit">Submit</button>
             </form>
           )}
         </Formik>
