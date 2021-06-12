@@ -18,7 +18,7 @@ export const Login = ({ changeToken }) => {
   return (
     <div className={styled.container}>
       <div className={styled.border}>
-        <h2>Login</h2>
+        <h2 className={styled.heading}>Login</h2>
         <Formik
           validationSchema={loginValidation}
           initialValues={{ username: "", password: "", checked: [] }}
@@ -36,7 +36,7 @@ export const Login = ({ changeToken }) => {
                 localStorage.setItem("username", values.username);
                 axiosInstance.defaults.headers["Authorization"] =
                   "JWT " + localStorage.getItem("access_token");
-                history.push("/");
+                history.push("/feed");
                 changeToken();
               })
               .catch((e) => {
@@ -54,7 +54,7 @@ export const Login = ({ changeToken }) => {
             handleBlur,
           }) => (
             <form onSubmit={handleSubmit} className={styled.container}>
-              <b>Username:</b>
+              <b className={styled.bold}>Username:</b>
               <input
                 className={styled.input}
                 type="text"
@@ -64,7 +64,7 @@ export const Login = ({ changeToken }) => {
                 value={values.username}
               />
               {values.username && touched.username && errors.username}
-              <b>Password:</b>
+              <b className={styled.bold}>Password:</b>
               <input
                 className={styled.input}
                 type="password"
@@ -74,10 +74,10 @@ export const Login = ({ changeToken }) => {
                 value={values.password}
               />
               {errors.password && touched.password && errors.password}
-              <button type="submit">Submit</button>
+              <button className={styled.button} type="submit">Submit</button>
               <label>
                 <Field type="checkbox" name="checked" value="remember" />
-                remember me
+                Remember Me
               </label>
             </form>
           )}
