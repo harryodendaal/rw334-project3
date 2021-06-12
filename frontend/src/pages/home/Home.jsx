@@ -12,7 +12,10 @@ export const Home = () => {
           {data?.map((post) => (
             <>
               <div className={styles.singleBox}>
-                <h1>Created by:</h1>
+                <h3>
+                  Created by:{post.user} From Group: {post.group}
+                </h3>
+                <h4>Created: {post.timestamp}</h4>
                 <li key={post.id} className={styles.listitem}>
                   <Link to={`/post/${post.id}`}>{post.title}</Link>
                 </li>

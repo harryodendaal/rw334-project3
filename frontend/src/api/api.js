@@ -32,7 +32,6 @@ export const FetchGroups = async () => {
 }
 
 export const FetchPost = ({id, groupId}) => {
-    console.log("fetchpostcalled")
     const history = useHistory();
     var user_id = GetUserId()
     const [post, setPost] = useState({})
@@ -74,7 +73,10 @@ export const FetchPost = ({id, groupId}) => {
 
     return (
         <div>
-            <Link to={`/post/${post.id}`}>{post.title}</Link>
+            <h1>
+                {post.title}
+                {/* <Link to={`/post/${post.id}`}>{post.title}</Link> */}
+            </h1>
             { isUserId ?
             <>
                 <button onClick={handleUpdatePostClick}>Update</button>
