@@ -23,9 +23,9 @@ export const PostForm = () => {
   }, [postId]);
   const history = useHistory();
   return (
-    <div className={styled.container}>
-      <div className={styled.border}>
-        <h2>{updateForm ? <h1>Update Post</h1> : <h1>Create Post</h1>}</h2>
+    <div className={styled.split}>
+      <div className={styled.make}>
+        <h2>{updateForm ? <h2>Update Post</h2> : <h2>Create Post</h2>}</h2>
         <Formik
           validationSchema={postFormValidation}
           initialValues={{ title: "", category: "", content: "" }}
@@ -46,6 +46,7 @@ export const PostForm = () => {
                   // axiosInstance.defaults.headers["Authorization"] =
                   //   "JWT " + localStorage.getItem("access_token");
                   history.push(`/group/${groupId}`);
+                  
                   // changeToken();
                 })
                 .catch((e) => {
@@ -87,7 +88,7 @@ export const PostForm = () => {
             <form onSubmit={handleSubmit} className={styled.container}>
               <b>Title:</b>
               <input
-                className={styled.input}
+                className={styled.inpuT}
                 type="text"
                 name="title"
                 onChange={handleChange}
@@ -97,7 +98,7 @@ export const PostForm = () => {
               {values.title && touched.title && errors.title}
               <b>Category:</b>
               <input
-                className={styled.input}
+                className={styled.inpuT}
                 type="text"
                 name="category"
                 onChange={handleChange}
@@ -106,8 +107,8 @@ export const PostForm = () => {
               />
               {errors.category && touched.category && errors.category}
               <b>Content:</b>
-              <input
-                className={styled.input}
+              <textarea
+                className={styled.content}
                 type="text"
                 name="content"
                 onChange={handleChange}
@@ -115,7 +116,7 @@ export const PostForm = () => {
                 value={values.content}
               />
               {errors.content && touched.content && errors.content}
-              <button type="submit">Submit</button>
+              <button class={styled.button} type="submit">Submit</button>
             </form>
           )}
         </Formik>
