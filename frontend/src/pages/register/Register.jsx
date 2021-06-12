@@ -4,6 +4,14 @@ import * as Yup from "yup";
 import styled from "./register.module.css";
 import axiosInstance from "../../api/axios";
 import { useHistory } from "react-router-dom";
+import { useState } from 'react';
+
+import rutger from "./Rutger.jpeg";
+import harry from "./Harry.jpg";
+import bernard from "./Bernard.jpeg";
+import anna from "./Anna.jpg";
+import jacq from "./jacq.jpeg";
+import kaylan from "./kaylan.jpeg"; 
 
 const regValidation = Yup.object().shape({
   username: Yup.string().required("Username is required"),
@@ -18,6 +26,9 @@ const regValidation = Yup.object().shape({
 
 export const Register = ({ changeToken }) => {
   const history = useHistory();
+  const [currentName, updateName] = useState(rutger);
+  const [avatarName, updateAvatar] = useState('rutger');
+
   return (
     <div className={styled.container}>
       <div className={styled.border}>
@@ -107,6 +118,31 @@ export const Register = ({ changeToken }) => {
               />
               <br></br>
               {errors.passwordConfirmation && touched.passwordConfirmation}
+
+              <div>
+                <p>Chosen avatar: {avatarName}</p>
+                <img className={styled.img} src={currentName} alt="member" />
+              </div>
+
+              <div>
+                <p>Change your avatar:</p>
+                <div>
+                  <img className={styled.img} src={harry} alt="member" />
+                  <img className={styled.img} src={rutger} alt="member" />
+                  <img className={styled.img} src={bernard} alt="member" />
+                  <img className={styled.img} src={kaylan} alt="member" />
+                  <img className={styled.img} src={jacq} alt="member" />
+                  <img className={styled.img} src={anna} alt="member" />
+                </div>
+                <div>
+                  <button className={styled.buttonW} onClick={() => {updateName(harry); updateAvatar('Harry')}}></button>
+                  <button className={styled.buttonW} onClick={() => {updateName(rutger); updateAvatar('Rutger')}}></button>
+                  <button className={styled.buttonW} onClick={() => {updateName(bernard); updateAvatar('Bernard')}}></button>
+                  <button className={styled.buttonW} onClick={() => {updateName(kaylan); updateAvatar('Kaylan')}}></button>
+                  <button className={styled.buttonW} onClick={() => {updateName(jacq); updateAvatar('Jacques')}}></button>
+                  <button className={styled.buttonW} onClick={() => {updateName(anna); updateAvatar('Anna')}}></button>
+                </div>
+              </div>
 
               <button className={styled.button} type="submit">Submit</button>
             </form>
