@@ -5,18 +5,20 @@ from .models import Chat, Message, Post, User, Comment, ApiGroup
 
 class ApiGroupCreateSerializer(serializers.ModelSerializer):
     posts = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
-    
+
     class Meta:
         model = ApiGroup
         fields = ['id', 'name', 'timestamp', 'users', 'posts', 'admins']
         read_only_fields = ['admins']
 
+
 class ApiGroupUpdateSerializer(serializers.ModelSerializer):
     posts = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
-    
+
     class Meta:
         model = ApiGroup
         fields = ['id', 'name', 'timestamp', 'users', 'posts', 'admins']
+
 
 class PostSerializer(serializers.ModelSerializer):
     user = serializers.ReadOnlyField(source='user.id')
@@ -24,13 +26,16 @@ class PostSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Post
-        fields = ['id', 'group', 'location', 'user', 'title', 'category', 'content', 'timestamp', 'updated', 'comments']
+        fields = ['id', 'group', 'location', 'user', 'title',
+                  'category', 'content', 'timestamp', 'updated', 'comments']
+
 
 class CommentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Comment
         fields = ['id', 'user', 'post', 'content', 'timestamp']
+
 
 class RegisterUserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -47,11 +52,12 @@ class RegisterUserSerializer(serializers.ModelSerializer):
         instance.save()
         return instance
 
+
 class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['id', 'username', 'password', 'avatar', 'friends']
+        fields = ['id', 'username', 'email', 'password', 'avatar', 'friends']
         # read_only_fields = ['id', 'username']
         extra_kwargs = {'password': {'write_only': True}}
 
@@ -63,12 +69,14 @@ class UserSerializer(serializers.ModelSerializer):
         instance.save()
         return instance
 
+
 class MessageSerializer(serializers.ModelSerializer):
     user = serializers.ReadOnlyField(source='user.username')
 
     class Meta:
         model = Message
         fields = ['id', 'user', 'chat', 'content', 'timestamp']
+
 
 class ChatSerializer(serializers.ModelSerializer):
     messages = MessageSerializer(many=True)

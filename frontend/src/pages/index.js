@@ -9,3 +9,4 @@ export * from './commentForm/commentForm';
 export * from './chat/Chat';
 export * from './feed/Feed';
 export * from './search/Search';
+export * from './User/User';

@@ -41,13 +41,7 @@ export const PostForm = () => {
                   group: groupId,
                 })
                 .then((res) => {
-                  // localStorage.setItem("access_token", res.data.access);
-                  // localStorage.setItem("refresh_token", res.data.refresh);
-                  // axiosInstance.defaults.headers["Authorization"] =
-                  //   "JWT " + localStorage.getItem("access_token");
                   history.push(`/group/${groupId}`);
-                  
-                  // changeToken();
                 })
                 .catch((e) => {
                   console.log(e);
@@ -116,7 +110,9 @@ export const PostForm = () => {
                 value={values.content}
               />
               {errors.content && touched.content && errors.content}
-              <button class={styled.button} type="submit">Submit</button>
+              <button class={styled.button} type="submit">
+                Submit
+              </button>
             </form>
           )}
         </Formik>

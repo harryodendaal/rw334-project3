@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 // import axiosInstance from "../../api/axios";
 import styled from "./navbar.module.css";
 import search from "./img/search.png";
+import { GetUserId } from "../../helper/getUserId";
 
 const AuthenticatedLinks = ({ changeToken }) => {
   const handleClick = () => {
@@ -16,14 +17,19 @@ const AuthenticatedLinks = ({ changeToken }) => {
     //   });
     localStorage.removeItem("access_token");
     localStorage.removeItem("refresh_token");
+    localStorage.removeItem("username");
     changeToken();
 
     console.log("hello");
   };
-
   return (
     <div className={styled.container}>
       <ul class={styled.ul}>
+        <li>
+          <Link to={`/user/${GetUserId()}`}>
+            {localStorage.getItem("username")}
+          </Link>
+        </li>
         <li>
           <Link to="/feed">Posts Feed</Link>
         </li>
@@ -41,14 +47,19 @@ const AuthenticatedLinks = ({ changeToken }) => {
       </ul>
 
       <div className="search-container">
-            <form action="search">
-              <input className={styled.box} type="text" placeholder="Search..." name="search"></input>
-              <button class={styled.searchButton}><img src={search} width="10" height="10"/></button>
-            </form>
+        <form action="search">
+          <input
+            className={styled.box}
+            type="text"
+            placeholder="Search..."
+            name="search"
+          ></input>
+          <button class={styled.searchButton}>
+            <img src={search} width="10" height="10" />
+          </button>
+        </form>
       </div>
-
     </div>
-
   );
 };
 
