@@ -1,5 +1,8 @@
 import axiosInstance from '../../api/axios';
 import React, { useState, useEffect } from 'react'
+import styled from "./chat.module.css";
+import enter from "./img/enter.png";
+import send from "./img/send.png";
 
 let ws;
 
@@ -72,11 +75,12 @@ export const Chat = () => {
   if (chatStarted) {
     return (
       <>
-        <div>
+        <div className={styled.room}>
           <h4>Room: {roomName}</h4>
-          <textarea id="chat-log" cols="100" rows="20" value={chatBox} onChange={handleChatBoxChange}></textarea>
-          <input id="chat-message-input" type="text" size="100" placeholder="Enter Message" value={message} onChange={handleMessageChange} />
-          <input id="chat-message-submit" type="button" value="Send"  onClick={sendMessage}/>
+          <textarea id="chat-log" cols="100" rows="20" value={chatBox} onChange={handleChatBoxChange} readOnly></textarea>
+          <br></br>
+          <input className={styled.message} id="chat-message-input" type="text" size="100" placeholder="Enter Message" value={message} onChange={handleMessageChange} />
+          <button className={styled.sendButton} id="chat-message-submit" onClick={sendMessage} ><img src={send} width="10" height="10"/></button>
         </div>
       </>
     )
@@ -85,7 +89,7 @@ export const Chat = () => {
       <>
         <div>
           <input type="text" name='room-name' id='input-room-name' placeholder='Enter Room Name' value={roomName} onChange={handleChange}/>
-          <input id="chat-message-submit" type="button" value="Enter" onClick={() => updateRoom()}/>
+          <button className={styled.enterButton} id="chat-message-submit" onClick={() => updateRoom()}><img src={enter} width="10" height="10"/></button>
         </div>
       </>
     )
