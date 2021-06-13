@@ -10,6 +10,7 @@ import styled from "./postform.module.css";
 const postFormValidation = Yup.object().shape({
   title: Yup.string().required("Username is required"),
   category: Yup.string().required("category is required"),
+  location: Yup.string().required("default location option selected"),
   content: Yup.string().required("content is required"),
 });
 
@@ -25,10 +26,16 @@ export const PostForm = () => {
   return (
     <div className={styled.split}>
       <div className={styled.make}>
-        <h2>{updateForm ? <h2>Update Post</h2> : <h2>Create Post</h2>}</h2>
+        <h2 className={styled.h2}>
+          {updateForm ? (
+            <h2 className={styled.h2}>Update Post</h2>
+          ) : (
+            <h2 className={styled.h2}>Create Post</h2>
+          )}
+        </h2>
         <Formik
           validationSchema={postFormValidation}
-          initialValues={{ title: "", category: "", content: "" }}
+          initialValues={{ title: "", category: "", location: "", content: "" }}
           onSubmit={(values) => {
             console.log(values);
 
@@ -37,6 +44,7 @@ export const PostForm = () => {
                 .put(`posts/${postId}/`, {
                   title: values.title,
                   category: values.category,
+                  location: values.location,
                   content: values.content,
                   group: groupId,
                 })
@@ -52,6 +60,7 @@ export const PostForm = () => {
                 .post("posts/", {
                   title: values.title,
                   category: values.category,
+                  location: values.location,
                   content: values.content,
                   group: groupId,
                 })
@@ -80,7 +89,7 @@ export const PostForm = () => {
             isSubmitting,
           }) => (
             <form onSubmit={handleSubmit} className={styled.container}>
-              <b>Title:</b>
+              <b className={styled.b}>Title:</b>
               <input
                 className={styled.inpuT}
                 type="text"
@@ -90,7 +99,7 @@ export const PostForm = () => {
                 value={values.title}
               />
               {values.title && touched.title && errors.title}
-              <b>Category:</b>
+              <b className={styled.b}>Category:</b>
               <input
                 className={styled.inpuT}
                 type="text"
@@ -100,7 +109,17 @@ export const PostForm = () => {
                 value={values.category}
               />
               {errors.category && touched.category && errors.category}
-              <b>Content:</b>
+              <b className={styled.b}>Location:</b>
+              <input
+                className={styled.inpuT}
+                type="text"
+                name="location"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.location}
+              />
+              {errors.location && touched.location && errors.location}
+              <b className={styled.b}>Content:</b>
               <textarea
                 className={styled.content}
                 type="text"

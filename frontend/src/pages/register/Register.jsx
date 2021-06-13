@@ -6,12 +6,12 @@ import axiosInstance from "../../api/axios";
 import { useHistory } from "react-router-dom";
 import { useState } from "react";
 
-import rutger from "./Rutger.jpeg";
-import harry from "./Harry.jpg";
-import bernard from "./Bernard.jpeg";
-import anna from "./Anna.jpg";
-import jacq from "./jacq.jpeg";
-import kaylan from "./kaylan.jpeg";
+import rutger from "./img/Rutger.jpeg";
+import harry from "./img/Harry.jpg";
+import bernard from "./img/Bernard.jpeg";
+import anna from "./img/Anna.jpg";
+import jacq from "./img/jacq.jpeg";
+import kaylan from "./img/kaylan.jpeg";
 
 const regValidation = Yup.object().shape({
   username: Yup.string().required("Username is required"),
@@ -133,7 +133,18 @@ export const Register = ({ changeToken }) => {
                 }
               />
 
+              <div className={styled.choose}>
+                <p>Chosen avatar: {avatarName}</p>
+                <img
+                  className={styled.chosenImg}
+                  src={currentName}
+                  alt="member"
+                />
+              </div>
+
               <div>
+                <p className={styled.choose}>Change your avatar:</p>
+
                 <p>Chosen avatar: {avatarName}</p>
                 <img className={styled.img} src={currentName} alt="member" />
               </div>

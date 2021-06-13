@@ -3,28 +3,37 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-top: 20px;
+    margin-top: 2%;
+    margin-left: 40%;
+    width: 20vw;
+
   }
   
-  b {
-    margin-right: 150px;
+  .b {
     font-family: "Lucida Console", monospace;
-    text-align: left;
-    color: rgb(24, 27, 122);
+    color: rgb(175, 0, 0);
+    font-size: x-large;
   }
   
   .input {
     margin: 10px;
+    width: 18vw;
+    height: 3vh;
   }
   
   .border {
     border: outset 10px;
   }
   
-  h2 {
-    margin-left: 10px;
+  .h2 {
+    margin:5%;
     font-family: "Lucida Console", monospace;
-    color: rgb(24, 27, 122);
+    color: rgb(175, 0, 0);
     font-size: xx-large;
+  }
+
+  .button {
+    margin-left: 40%;
+    margin-bottom: 2%;
   }
   
