@@ -26,7 +26,6 @@ export const PostForm = () => {
   return (
     <div className={styled.split}>
       <div className={styled.make}>
-<<<<<<< HEAD
         <h2 className={styled.h2}>
           {updateForm ? (
             <h2 className={styled.h2}>Update Post</h2>
@@ -34,9 +33,6 @@ export const PostForm = () => {
             <h2 className={styled.h2}>Create Post</h2>
           )}
         </h2>
-=======
-        <h2 className={styled.h2}>{updateForm ? <h2 className={styled.h2}>Update Post</h2> : <h2 className={styled.h2}>Create Post</h2>}</h2>
->>>>>>> d65814ce5c882e63ac6dda9fde155eff3edbc8bb
         <Formik
           validationSchema={postFormValidation}
           initialValues={{ title: "", category: "", location: "", content: "" }}
