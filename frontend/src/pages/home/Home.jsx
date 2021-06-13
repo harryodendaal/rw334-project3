@@ -16,11 +16,7 @@ export const Home = () => {
 
             <div class="feed">
               <div class={styled.feed}>    
-<<<<<<< HEAD
                 <h2 className={styled.h2}>Posts Feed</h2>
-=======
-                <h2>Posts Feed</h2>
->>>>>>> 578a77033c96116e5b1fbe4adc5c29bb622a05d0
                   <div class={styled.p}>
                     <p>POSTS</p>
                     
