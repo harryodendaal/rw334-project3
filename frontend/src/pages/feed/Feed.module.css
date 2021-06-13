@@ -32,7 +32,6 @@
 
 .button {
     margin-bottom: 1%;
-<<<<<<< HEAD
     
     font-size: 16px;
     padding: 12px 24px;
@@ -40,8 +39,6 @@
     cursor: pointer;
     border-radius: 5px;
     text-align: center;
-=======
->>>>>>> 578a77033c96116e5b1fbe4adc5c29bb622a05d0
 }
 
 .feed {
@@ -70,7 +67,6 @@
     cursor: pointer;
     margin-bottom: 10px;
 }
-<<<<<<< HEAD
 
 .h2 {
     font-family: "Lucida Console", monospace;
@@ -81,5 +77,3 @@
     font-family: "Lucida Console", monospace;
     color: rgb(78, 5, 5);
 }
-=======
->>>>>>> 578a77033c96116e5b1fbe4adc5c29bb622a05d0
