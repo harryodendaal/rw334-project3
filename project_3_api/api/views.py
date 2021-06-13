@@ -12,6 +12,7 @@ from .permissions import IsOwnerOrReadOnly, IsGroupAdminOrReadOnly
 
 User = get_user_model()
 
+
 class GroupList(generics.ListCreateAPIView):
     queryset = ApiGroup.objects.all()
     serializer_class = ApiGroupCreateSerializer
@@ -19,6 +20,7 @@ class GroupList(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         serializer.save(admins=[self.request.user])
+
 
 class GroupDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = ApiGroup.objects.all()
@@ -28,10 +30,12 @@ class GroupDetail(generics.RetrieveUpdateDestroyAPIView):
     def put(self, request, *args, **kwargs):
         return self.partial_update(request, *args, **kwargs)
 
+
 class UserList(generics.ListCreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     # permission_classes = [IsAuthenticated]
+
 
 class UserDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
@@ -40,6 +44,7 @@ class UserDetail(generics.RetrieveUpdateDestroyAPIView):
 
     def put(self, request, *args, **kwargs):
         return self.partial_update(request, *args, **kwargs)
+
 
 class PostList(generics.ListCreateAPIView):
     serializer_class = PostSerializer
@@ -69,6 +74,7 @@ class PostList(generics.ListCreateAPIView):
         else:
             return self.serializer_class
 
+
 class PostDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
@@ -83,6 +89,7 @@ class PostDetail(generics.RetrieveUpdateDestroyAPIView):
     #     else:
     #         return self.serializer_class
 
+
 class CommentList(generics.ListCreateAPIView):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
@@ -91,6 +98,7 @@ class CommentList(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
+
 class CommentDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
@@ -98,7 +106,8 @@ class CommentDetail(generics.RetrieveUpdateDestroyAPIView):
 
     def put(self, request, *args, **kwargs):
         return self.partial_update(request, *args, **kwargs)
-        
+
+
 class CustomUserCreate(APIView):
 
     permission_classes = [AllowAny]
@@ -119,18 +128,22 @@ class CustomUserCreate(APIView):
 #         'room_name': room_name
 #     })
 
+
 class ChatList(generics.ListCreateAPIView):
     queryset = Chat.objects.all()
     serializer_class = ChatSerializer
     filterset_fields = ['name']
 
+
 class ChatDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Chat.objects.all()
     serializer_class = ChatSerializer
 
+
 class MessageList(generics.ListCreateAPIView):
     queryset = Message.objects.all()
     serializer_class = MessageSerializer
+
 
 class MessageDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Message.objects.all()

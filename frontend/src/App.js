@@ -1,7 +1,7 @@
 import "./App.css"
 
 import {useState, useEffect} from 'react';
-import {Home,Login,Register, Post, PostForm, Groups, Group, CommentForm, Chat, Feed, Search} from './pages/index';
+import {Home,Login,Register, Post, PostForm, Groups, Group, CommentForm, Chat, Feed, Search, User} from './pages/index';
 import {Navbar} from './components/index'
 import {Route, BrowserRouter as Router} from 'react-router-dom'
 import {QueryClient, QueryClientProvider } from 'react-query'
@@ -58,6 +58,9 @@ function App() {
       </Route>
       <Route exact path="/search" component= {Search}>
         <Search/>
+      </Route>
+      <Route exact path="/user/:id">
+        <User/>
       </Route>
     </QueryClientProvider>
     </Router>

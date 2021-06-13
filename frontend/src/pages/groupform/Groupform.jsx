@@ -26,7 +26,7 @@ export const GroupForm = () => {
   return (
     <div className={styled.container}>
       <div className={styled.border}>
-        <h2>{updateForm ? <h1>Update Group</h1> : <h1>Create Group</h1>}</h2>
+        <h2 className={styled.h2}>{updateForm ? <h2 className={styled.h2}>Update Group</h2> : <h2 className={styled.h2}>Create Group</h2>}</h2>
         <Formik
           validationSchema={groupFormValidation}
           initialValues={{ name: "" }}
@@ -75,8 +75,8 @@ export const GroupForm = () => {
             handleBlur,
             isSubmitting,
           }) => (
-            <form onSubmit={handleSubmit} className={styled.container}>
-              <b>Name:</b>
+            <form onSubmit={handleSubmit} >
+              <b className={styled.b}>Name:</b>
               <input
                 className={styled.input}
                 type="text"
@@ -85,9 +85,10 @@ export const GroupForm = () => {
                 onBlur={handleBlur}
                 value={values.name}
               />
+              <br></br>
               {values.name && touched.name && errors.name}
 
-              <button type="submit">Submit</button>
+              <button className={styled.button} type="submit">Submit</button>
             </form>
           )}
         </Formik>

@@ -84,13 +84,13 @@ h2 {
   background-color: lightblue;
 }
 
-.b {
+b {
   margin-left: 3%;
   margin-top: 1%;
   margin-bottom: 1%;
   font-family: "Lucida Console", monospace;
   text-align: left;
-  color: rgb(78, 5, 5);
+  color: rgb(24, 27, 122);
   font-size: 150%;
 }
 
@@ -102,10 +102,10 @@ h2 {
   border: outset 10px;
 }
 
-.h2 {
+h2 {
   margin-left: 10px;
   font-family: "Lucida Console", monospace;
-  color: rgb(78, 5, 5);
+  color: rgb(24, 27, 122);
   font-size: xx-large;
 }
 

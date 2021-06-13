@@ -31,7 +31,7 @@ export const Feed = () => {
 
             <div class="make"> 
               <div class={styled.make}>
-                <h2>Create Post</h2>
+                <h2 className={styled.h2create}>Create Post</h2>
                 <div>
                   <button class={styled.button}>
                     <Link to="/postForm"> Create Post</Link>
@@ -55,7 +55,7 @@ export const Feed = () => {
             
             <div class="feed">
               <div class={styled.feed}>    
-                <h2>Posts Feed</h2>
+                <h2 className={styled.h2}>Posts Feed</h2>
                 {mapVisible === true && 
                   <Map data={data} />
                   }
