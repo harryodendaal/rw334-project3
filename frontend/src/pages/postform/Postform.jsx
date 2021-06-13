@@ -26,11 +26,7 @@ export const PostForm = () => {
   return (
     <div className={styled.split}>
       <div className={styled.make}>
-<<<<<<< HEAD
         <h2 className={styled.h2}>{updateForm ? <h2 className={styled.h2}>Update Post</h2> : <h2 className={styled.h2}>Create Post</h2>}</h2>
-=======
-        <h2>{updateForm ? <h2>Update Post</h2> : <h2>Create Post</h2>}</h2>
->>>>>>> 578a77033c96116e5b1fbe4adc5c29bb622a05d0
         <Formik
           validationSchema={postFormValidation}
           initialValues={{ title: "", category: "", location: "" , content: "" }}
@@ -113,7 +109,6 @@ export const PostForm = () => {
                 value={values.category}
               />
               {errors.category && touched.category && errors.category}
-<<<<<<< HEAD
               <b className={styled.b}>Location:</b>
               <input
                 className={styled.inpuT}
@@ -125,9 +120,6 @@ export const PostForm = () => {
               />
               {errors.location && touched.location && errors.location}
               <b className={styled.b}>Content:</b>
-=======
-              <b>Content:</b>
->>>>>>> 578a77033c96116e5b1fbe4adc5c29bb622a05d0
               <textarea
                 className={styled.content}
                 type="text"
