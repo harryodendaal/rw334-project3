@@ -1,0 +1,19 @@
+.sendButton {
+    cursor: pointer;
+}
+
+textarea {
+    resize: none;
+}
+
+.room {
+    display: inline;
+}
+
+.message {
+    width: 687px;
+}
+
+.enterButton {
+    cursor: pointer;
+}
