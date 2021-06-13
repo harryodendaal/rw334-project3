@@ -85,21 +85,13 @@ h2 {
   background-color: lightblue;
 }
 
-<<<<<<< HEAD
 .b {
-=======
-b {
->>>>>>> 578a77033c96116e5b1fbe4adc5c29bb622a05d0
   margin-left: 3%;
   margin-top: 1%;
   margin-bottom: 1%;
   font-family: "Lucida Console", monospace;
   text-align: left;
-<<<<<<< HEAD
   color: rgb(78, 5, 5);
-=======
-  color: rgb(24, 27, 122);
->>>>>>> 578a77033c96116e5b1fbe4adc5c29bb622a05d0
   font-size: 150%;
 }
 
@@ -111,17 +103,10 @@ b {
   border: outset 10px;
 }
 
-<<<<<<< HEAD
 .h2 {
   margin-left: 10px;
   font-family: "Lucida Console", monospace;
   color: rgb(78, 5, 5);
-=======
-h2 {
-  margin-left: 10px;
-  font-family: "Lucida Console", monospace;
-  color: rgb(24, 27, 122);
->>>>>>> 578a77033c96116e5b1fbe4adc5c29bb622a05d0
   font-size: xx-large;
 }
 
