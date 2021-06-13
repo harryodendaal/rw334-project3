@@ -31,6 +31,7 @@
 }
 
 .button {
+<<<<<<< HEAD
   margin-bottom: 1%;
 
   font-size: 16px;
@@ -39,6 +40,16 @@
   cursor: pointer;
   border-radius: 5px;
   text-align: center;
+=======
+    margin-bottom: 1%;
+    
+    font-size: 16px;
+    padding: 12px 24px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+>>>>>>> d65814ce5c882e63ac6dda9fde155eff3edbc8bb
 }
 
 .feed {
@@ -74,6 +85,12 @@
 }
 
 .h2create {
+<<<<<<< HEAD
   font-family: "Lucida Console", monospace;
   color: rgb(78, 5, 5);
 }
+=======
+    font-family: "Lucida Console", monospace;
+    color: rgb(78, 5, 5);
+}
+>>>>>>> d65814ce5c882e63ac6dda9fde155eff3edbc8bb

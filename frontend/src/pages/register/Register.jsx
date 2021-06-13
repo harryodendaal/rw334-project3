@@ -11,8 +11,12 @@ import harry from "./img/Harry.jpg";
 import bernard from "./img/Bernard.jpeg";
 import anna from "./img/Anna.jpg";
 import jacq from "./img/jacq.jpeg";
+<<<<<<< HEAD
 import kaylan from "./img/kaylan.jpeg";
 
+=======
+import kaylan from "./img/kaylan.jpeg"; 
+>>>>>>> d65814ce5c882e63ac6dda9fde155eff3edbc8bb
 
 const regValidation = Yup.object().shape({
   username: Yup.string().required("Username is required"),
@@ -126,6 +130,7 @@ export const Register = ({ changeToken }) => {
               <br></br>
               {errors.passwordConfirmation && touched.passwordConfirmation}
 
+<<<<<<< HEAD
               <input
                 type="file"
                 name="photo1"
@@ -134,6 +139,8 @@ export const Register = ({ changeToken }) => {
                 }
               />
 
+=======
+>>>>>>> d65814ce5c882e63ac6dda9fde155eff3edbc8bb
               <div className={styled.choose}>
                 <p>Chosen avatar: {avatarName}</p>
                 <img
@@ -145,6 +152,7 @@ export const Register = ({ changeToken }) => {
 
               <div>
                 <p className={styled.choose}>Change your avatar:</p>
+<<<<<<< HEAD
 
                 <p>Chosen avatar: {avatarName}</p>
                 <img className={styled.img} src={currentName} alt="member" />
@@ -153,6 +161,9 @@ export const Register = ({ changeToken }) => {
               <div>
                 <p>Change your avatar:</p>
                 <div>
+=======
+                <div className={styled.avatarBox}>
+>>>>>>> d65814ce5c882e63ac6dda9fde155eff3edbc8bb
                   <img className={styled.img} src={harry} alt="member" />
                   <img className={styled.img} src={rutger} alt="member" />
                   <img className={styled.img} src={bernard} alt="member" />
