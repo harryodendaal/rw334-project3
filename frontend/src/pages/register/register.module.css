@@ -27,26 +27,17 @@
 
 .button {
   margin: 10px;
-<<<<<<< HEAD
   margin-left: 46%;
   align-items: center;
 }
 
 .heading {
   margin-left: 40%;
-=======
-  margin-left: 100px;
-}
-
-.heading {
-  margin-right: 75px;
->>>>>>> 578a77033c96116e5b1fbe4adc5c29bb622a05d0
   font-family: "Lucida Console", monospace;
   color: rgb(175, 0, 0);
   font-size: xx-large;
 }
 
-<<<<<<< HEAD
 .img {
   width: 8%;
   height: 8%;
@@ -93,18 +84,4 @@
   width: 20px;
   height: 20px;
   margin-bottom: 2%;
-=======
-.buttonW {
-  width: 20px;
-  height: 20px;
-  margin: 60px;
-  align-items: center;
-}
-
-.img {
-  width: 8%;
-  height: 8%;
-  margin: 20px;
-  align-items: center;
->>>>>>> 578a77033c96116e5b1fbe4adc5c29bb622a05d0
 }
