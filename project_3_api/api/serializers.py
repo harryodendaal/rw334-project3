@@ -19,8 +19,18 @@ class ApiGroupUpdateSerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'timestamp', 'users', 'posts', 'admins']
 
 class PostSerializer(serializers.ModelSerializer):
-    user = serializers.ReadOnlyField(source='user.id')
+    user = serializers.ReadOnlyField(source='user.username')
     comments = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    # group = ApiGroupCreateSerializer()
+
+    class Meta:
+        model = Post
+        fields = ['id', 'group', 'location', 'user', 'title', 'category', 'content', 'timestamp', 'updated', 'comments']
+
+class PostReadSerializer(serializers.ModelSerializer):
+    user = serializers.ReadOnlyField(source='user.username')
+    comments = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    group = serializers.ReadOnlyField(source='group.name')
 
     class Meta:
         model = Post

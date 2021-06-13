@@ -1,14 +1,30 @@
 import { FetchPosts } from "../../api/api";
+import React, { useState } from 'react';
 import { Link } from "react-router-dom";
 import { useQuery } from "react-query";
 import styled from "./Feed.module.css";
 import filter from "./img/filter.png";
+import { Map } from "./Map.jsx";
 
 export const Feed = () => {
+  const [mapVisible, setMapVisible] = useState(false);
   const { data } = useQuery("FetchPosts", FetchPosts);
+  
+
+  const toggleMap = (e) => {
+    console.log(mapVisible);
+    setMapVisible(!mapVisible);
+  }
+
 
   return (
     <>
+      <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+        integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+        crossorigin=""
+      />
       <body>
         <div class="split">
           <div class={styled.split}>
@@ -36,11 +52,16 @@ export const Feed = () => {
                 </div>
               </div>
             </div>
-
+            
             <div class="feed">
               <div class={styled.feed}>    
                 <h2>Posts Feed</h2>
+                {mapVisible === true && 
+                  <Map data={data} />
+                  }
                   <div class={styled.p}>
+                  
+                    <button onClick={toggleMap}>Toggle map</button>
                     <form>
                         <select className={styled.dropdown} id="country" name="country">
                             <option value="desTime">Time (descending)</option>

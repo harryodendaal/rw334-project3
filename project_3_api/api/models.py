@@ -18,6 +18,9 @@ class ApiGroup(models.Model):
     class Meta:
         ordering = ['-timestamp']
 
+    def __str__(self):
+        return self.name
+
 
 class Post(models.Model):
     group = models.ForeignKey(
