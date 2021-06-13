@@ -4,6 +4,14 @@ import * as Yup from "yup";
 import styled from "./register.module.css";
 import axiosInstance from "../../api/axios";
 import { useHistory } from "react-router-dom";
+import { useState } from 'react';
+
+import rutger from "./img/Rutger.jpeg";
+import harry from "./img/Harry.jpg";
+import bernard from "./img/Bernard.jpeg";
+import anna from "./img/Anna.jpg";
+import jacq from "./img/jacq.jpeg";
+import kaylan from "./img/kaylan.jpeg"; 
 
 const regValidation = Yup.object().shape({
   username: Yup.string().required("Username is required"),
@@ -18,10 +26,13 @@ const regValidation = Yup.object().shape({
 
 export const Register = ({ changeToken }) => {
   const history = useHistory();
+  const [currentName, updateName] = useState(rutger);
+  const [avatarName, updateAvatar] = useState('rutger');
+
   return (
     <div className={styled.container}>
       <div className={styled.border}>
-        <h2>Register</h2>
+        <h2 className={styled.heading}>Register</h2>
         <Formik
           validationSchema={regValidation}
           initialValues={{
@@ -64,7 +75,7 @@ export const Register = ({ changeToken }) => {
             isSubmitting,
           }) => (
             <form onSubmit={handleSubmit}>
-              <p>Username:</p>
+              <p className={styled.text}>Username:</p>
               <input
                 className={styled.input}
                 type="text"
@@ -74,7 +85,7 @@ export const Register = ({ changeToken }) => {
                 value={values.username}
               />
               {values.username && touched.username && errors.username}
-              <p>Email:</p>
+              <p className={styled.text}>Email:</p>
               <input
                 className={styled.input}
                 type="email"
@@ -85,7 +96,7 @@ export const Register = ({ changeToken }) => {
               />
               <br></br>
               {errors.email && touched.email}
-              <p>Password:</p>
+              <p className={styled.text}>Password:</p>
               <input
                 className={styled.input}
                 type="password"
@@ -96,7 +107,7 @@ export const Register = ({ changeToken }) => {
               />
               <br></br>
               {errors.password && touched.password && errors.password}
-              <p>Password Confirmation:</p>
+              <p className={styled.text}>Password Confirmation:</p>
               <input
                 className={styled.input}
                 type="password"
@@ -108,7 +119,32 @@ export const Register = ({ changeToken }) => {
               <br></br>
               {errors.passwordConfirmation && touched.passwordConfirmation}
 
-              <button type="submit">Submit</button>
+              <div className={styled.choose}>
+                <p>Chosen avatar: {avatarName}</p>
+                <img className={styled.chosenImg} src={currentName} alt="member" />
+              </div>
+
+              <div>
+                <p className={styled.choose}>Change your avatar:</p>
+                <div className={styled.avatarBox}>
+                  <img className={styled.img} src={harry} alt="member" />
+                  <img className={styled.img} src={rutger} alt="member" />
+                  <img className={styled.img} src={bernard} alt="member" />
+                  <img className={styled.img} src={kaylan} alt="member" />
+                  <img className={styled.img} src={jacq} alt="member" />
+                  <img className={styled.img} src={anna} alt="member" />
+                </div>
+                <div>
+                  <button className={styled.buttonW} onClick={() => {updateName(harry); updateAvatar('Harry')}}></button>
+                  <button className={styled.buttonW} onClick={() => {updateName(rutger); updateAvatar('Rutger')}}></button>
+                  <button className={styled.buttonW} onClick={() => {updateName(bernard); updateAvatar('Bernard')}}></button>
+                  <button className={styled.buttonW} onClick={() => {updateName(kaylan); updateAvatar('Kaylan')}}></button>
+                  <button className={styled.buttonW} onClick={() => {updateName(jacq); updateAvatar('Jacques')}}></button>
+                  <button className={styled.buttonW} onClick={() => {updateName(anna); updateAvatar('Anna')}}></button>
+                </div>
+              </div>
+
+              <button className={styled.button} type="submit">Submit</button>
             </form>
           )}
         </Formik>

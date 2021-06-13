@@ -1,7 +1,7 @@
 import "./App.css"
 
 import {useState, useEffect} from 'react';
-import {Home,Login,Register, Post, PostForm, Groups, Group, CommentForm, Chat} from './pages/index';
+import {Home,Login,Register, Post, PostForm, Groups, Group, CommentForm, Chat, Feed, Search} from './pages/index';
 import {Navbar} from './components/index'
 import {Route, BrowserRouter as Router} from 'react-router-dom'
 import {QueryClient, QueryClientProvider } from 'react-query'
@@ -30,6 +30,7 @@ function App() {
       <Navbar token={token} changeTokenState={changeTokenState} />
 
       <Route exact path='/' component= {Home}/>
+      <Route exact path='/feed' component= {Feed}/>
       <Route exact path='/chat' component= {Chat}/>
       <Route exact path="/groups">
         <Groups/>
@@ -43,7 +44,7 @@ function App() {
       <Route exact path="/post/:id">
         <Post/>
       </Route>
-      <Route exact path="/postForm/:groupId/:postId?">
+      <Route exact path="/postForm/:groupId?/:postId?">
         <PostForm/>
       </Route>
       <Route exact path="/group/:id">
@@ -54,6 +55,9 @@ function App() {
       </Route>
       <Route exact path="/commentForm/:postId/:commentId?">
         <CommentForm/>
+      </Route>
+      <Route exact path="/search" component= {Search}>
+        <Search/>
       </Route>
     </QueryClientProvider>
     </Router>

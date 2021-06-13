@@ -5,50 +5,45 @@ import axiosInstance from "../../api/axios";
 import { useHistory } from "react-router-dom";
 import { useParams } from "react-router";
 
-import styled from "./postform.module.css";
+import styled from "./search.module.css";
 
-const postFormValidation = Yup.object().shape({
-  title: Yup.string().required("Username is required"),
-  category: Yup.string().required("category is required"),
-  location: Yup.string().required("default location option selected"),
-  content: Yup.string().required("content is required"),
+const searchValidation = Yup.object().shape({
+  Group: Yup.string().required("Username is required"),
+  User: Yup.string().required("category is required"),
 });
 
-export const PostForm = () => {
-  let { groupId, postId } = useParams();
+export const Search = () => {
+  let { id } = useParams();
   const [updateForm, setUpdateForm] = useState(false);
   useEffect(() => {
-    if (postId !== undefined) {
+    if (id !== undefined) {
       setUpdateForm(true);
     }
-  }, [postId]);
+  }, [id]);
   const history = useHistory();
   return (
     <div className={styled.split}>
       <div className={styled.make}>
-        <h2 className={styled.h2}>{updateForm ? <h2 className={styled.h2}>Update Post</h2> : <h2 className={styled.h2}>Create Post</h2>}</h2>
+        <h2>Search Results</h2>
         <Formik
-          validationSchema={postFormValidation}
-          initialValues={{ title: "", category: "", location: "" , content: "" }}
+          validationSchema={searchValidation}
+          initialValues={{ Group: "", User: "" }}
           onSubmit={(values) => {
             console.log(values);
 
             if (updateForm) {
               axiosInstance
-                .put(`posts/${postId}/`, {
+                .put(`seacrh/${id}/`, {
                   title: values.title,
                   category: values.category,
-                  location: values.location,
                   content: values.content,
-                  group: groupId,
                 })
                 .then((res) => {
                   // localStorage.setItem("access_token", res.data.access);
                   // localStorage.setItem("refresh_token", res.data.refresh);
                   // axiosInstance.defaults.headers["Authorization"] =
                   //   "JWT " + localStorage.getItem("access_token");
-                  history.push(`/group/${groupId}`);
-                  
+                  history.push(`/seacrh/${res.data.id}`);
                   // changeToken();
                 })
                 .catch((e) => {
@@ -57,19 +52,17 @@ export const PostForm = () => {
                 });
             } else {
               axiosInstance
-                .post("posts/", {
+                .post("seacrh/", {
                   title: values.title,
                   category: values.category,
-                  location: values.location,
                   content: values.content,
-                  group: groupId,
                 })
                 .then((res) => {
                   // localStorage.setItem("access_token", res.data.access);
                   // localStorage.setItem("refresh_token", res.data.refresh);
                   // axiosInstance.defaults.headers["Authorization"] =
                   //   "JWT " + localStorage.getItem("access_token");
-                  history.push(`/group/${groupId}`);
+                  history.push(`/seacrh/${res.data.id}`);
                   // changeToken();
                 })
                 .catch((e) => {
@@ -89,7 +82,7 @@ export const PostForm = () => {
             isSubmitting,
           }) => (
             <form onSubmit={handleSubmit} className={styled.container}>
-              <b className={styled.b}>Title:</b>
+              <b>Title:</b>
               <input
                 className={styled.inpuT}
                 type="text"
@@ -99,7 +92,7 @@ export const PostForm = () => {
                 value={values.title}
               />
               {values.title && touched.title && errors.title}
-              <b className={styled.b}>Category:</b>
+              <b>Category:</b>
               <input
                 className={styled.inpuT}
                 type="text"
@@ -109,17 +102,7 @@ export const PostForm = () => {
                 value={values.category}
               />
               {errors.category && touched.category && errors.category}
-              <b className={styled.b}>Location:</b>
-              <input
-                className={styled.inpuT}
-                type="text"
-                name="location"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.location}
-              />
-              {errors.location && touched.location && errors.location}
-              <b className={styled.b}>Content:</b>
+              <b>Content:</b>
               <textarea
                 className={styled.content}
                 type="text"

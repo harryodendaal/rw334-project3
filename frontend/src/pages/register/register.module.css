@@ -3,36 +3,85 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
+  
   width: 100vw;
   margin-top: 20px;
 }
 
 .input {
-  width: 200px;
+  width: 85%;
   margin-left: 15px;
 }
 
-p {
+.text {
   margin-bottom: 10px;
   margin-left: 15px;
-  font-weight: bold;
   font-family: "Lucida Console", monospace;
   text-align: left;
-  color: rgb(24, 27, 122);
+  color: rgb(175, 0, 0);
 }
 
 .border {
-  border: outset 10px;
+  border: 10px groove rgb(121, 116, 116);
 }
 
-button {
+.button {
   margin: 10px;
+  margin-left: 46%;
+  align-items: center;
 }
 
-h2 {
+.heading {
+  margin-left: 40%;
   font-family: "Lucida Console", monospace;
-  color: rgb(24, 27, 122);
-  margin-left: 10px;
+  color: rgb(175, 0, 0);
   font-size: xx-large;
+}
+
+.img {
+  width: 8%;
+  height: 8%;
+  margin: 15px;
+  align-items: center;
+}
+
+.avatarBox {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 1vw;
+  flex-direction: row;
+  width: 40vw;
+  margin-top: -2%;
+}
+
+.choose {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: -1%;
+  margin-bottom: 3%;
+}
+.chosenImg{
+  width: 5pc;
+  align-items: center;
+}
+
+.buttonW {
+  
+  justify-content: space-between;
+  align-items: center;
+  
+  flex-wrap: wrap;
+  flex-direction: row;
+  
+  margin-inline-end: 2vw;
+  margin-inline-start: 2vw;
+  margin-inline: 3vw;
+
+  width: 20px;
+  height: 20px;
+  margin-bottom: 2%;
 }

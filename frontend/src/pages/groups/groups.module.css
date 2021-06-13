@@ -1,0 +1,35 @@
+.container {
+    align-items: center;
+    margin-left: 40%;
+    position: center;
+    width: 100%;
+    max-width: 400px;
+}
+
+.img{
+    width: 20pc;
+}
+
+.button {
+    margin-left: 40%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    background-color: rgb(158, 156, 156);
+    color: white;
+    font-size: 16px;
+    padding: 12px 24px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+}
+.button:hover {
+    background-color: black;
+}
+
+.heading {
+    margin-left: 14%;
+    font-family: "Lucida Console", monospace;
+    color: rgb(175, 0, 0);
+    font-size: xx-large;
+}

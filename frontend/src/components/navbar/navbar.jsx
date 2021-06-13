@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 // import axiosInstance from "../../api/axios";
 import styled from "./navbar.module.css";
+import search from "./img/search.png";
 
 const AuthenticatedLinks = ({ changeToken }) => {
   const handleClick = () => {
@@ -21,22 +22,33 @@ const AuthenticatedLinks = ({ changeToken }) => {
   };
 
   return (
-    <ul>
-      <li>
-        <Link to="">Posts Feed</Link>
-      </li>
-      <li>
-        <Link to="/groups">Group Feed</Link>
-      </li>
-      <li>
-        <Link to="/chat">Chat</Link>
-      </li>
-      <li>
-        <a href="/" onClick={handleClick}>
-          Logout
-        </a>
-      </li>
-    </ul>
+    <div className={styled.container}>
+      <ul class={styled.ul}>
+        <li>
+          <Link to="/feed">Posts Feed</Link>
+        </li>
+        <li>
+          <Link to="/groups">Group Feed</Link>
+        </li>
+        <li>
+          <Link to="/chat">Chat</Link>
+        </li>
+        <li>
+          <a href="/" onClick={handleClick}>
+            Logout
+          </a>
+        </li>
+      </ul>
+
+      <div className="search-container">
+            <form action="search">
+              <input className={styled.box} type="text" placeholder="Search..." name="search"></input>
+              <button class={styled.searchButton}><img src={search} width="10" height="10"/></button>
+            </form>
+      </div>
+
+    </div>
+
   );
 };
 
