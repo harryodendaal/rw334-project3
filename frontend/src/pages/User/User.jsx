@@ -1,6 +1,7 @@
 import { Formik } from "formik";
 import React from "react";
 import { useParams } from "react-router";
+import { useHistory } from "react-router-dom";
 import * as Yup from "yup";
 import axiosInstance from "../../api/axios";
 import styled from "./user.module.css";
@@ -11,7 +12,7 @@ const userValidation = Yup.object().shape({
 
 export const User = () => {
   let { id } = useParams();
-
+  const history = useHistory();
   return (
     <div className={styled.split}>
       <div className={styled.make}>
@@ -51,6 +52,7 @@ export const User = () => {
               localStorage.removeItem("access_token");
               localStorage.removeItem("refresh_token");
               localStorage.removeItem("username");
+              history.push("/");
             }
           }}
         >
