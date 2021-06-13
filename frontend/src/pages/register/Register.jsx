@@ -13,6 +13,7 @@ import anna from "./img/Anna.jpg";
 import jacq from "./img/jacq.jpeg";
 import kaylan from "./img/kaylan.jpeg";
 
+
 const regValidation = Yup.object().shape({
   username: Yup.string().required("Username is required"),
   password: Yup.string(),
