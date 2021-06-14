@@ -11,7 +11,8 @@ const queryClient = new QueryClient()
 
 function App() {
   
-   const [token, setToken] = useState(false);
+  const [token, setToken] = useState(false);
+  
 
   const changeTokenState =() => {
     setToken(state => state = !state)
@@ -50,18 +51,20 @@ function App() {
       <Route exact path="/group/:id">
         <Group/>
       </Route>
-      <Route exact path="/groupForm">
+      <Route exact path="/groupForm/:groupid?">
         <GroupForm/>
       </Route>
       <Route exact path="/commentForm/:postId/:commentId?">
         <CommentForm/>
       </Route>
-      <Route exact path="/search" component= {Search}>
-        <Search/>
-      </Route>
-      <Route exact path="/user/:id">
+
+      <Route exact path="/user/:id/:friendId?">
         <User/>
       </Route>
+      <Route exact path='/search'>
+        <Search/>
+      </Route>
+
     </QueryClientProvider>
     </Router>
   );

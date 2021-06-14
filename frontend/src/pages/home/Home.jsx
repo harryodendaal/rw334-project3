@@ -2,9 +2,11 @@ import { FetchPosts } from "../../api/api";
 import { Link } from "react-router-dom";
 import { useQuery } from "react-query";
 import styled from "./home.module.css";
+import { GetUserId } from "../../helper/getUserId";
 
 export const Home = () => {
   const { data } = useQuery("FetchPosts", FetchPosts);
+  GetUserId();
 
   return (
     <>

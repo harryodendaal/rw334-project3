@@ -63,7 +63,7 @@ export const Register = ({ changeToken }) => {
                 })
                 .catch((e) => {
                   console.log(e);
-                  alert(e);
+                  alert("Username already taken");
                   // alert(e.response.data["message"]);
                 });
             } else {

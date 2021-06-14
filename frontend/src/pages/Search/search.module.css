@@ -1,0 +1,41 @@
+.gridContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 60vw;
+  position: absolute;
+  left: 19%
+}
+.grid_item1 {
+  height: 80vh;
+  border: 5px;
+  border-color: black;
+  border-style: solid;
+}
+.grid_item2 {
+  height: 80vh;
+  border: 5px;
+  border-color: black;
+  border-style: solid;
+}
+
+.h1{
+  display: flex;
+  margin-left: 46%;
+  font-family: "Lucida Console", monospace;
+  color: rgb(129, 2, 2);
+}
+
+.search{
+  margin-left: 36%;
+  font-family: "Lucida Console", monospace;
+  color: rgb(129, 2, 2);
+}
+
+.box{
+  width: 18vw;
+  height: 3vh;
+}
+
+.p{
+  margin-left: 0.5vw;
+}

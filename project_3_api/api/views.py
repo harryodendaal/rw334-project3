@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import generics
 from .models import Chat, Message, Post, Comment, ApiGroup
-from .serializers import  ChatSerializer, MessageSerializer, PostSerializer, PostReadSerializer, RegisterUserSerializer, ApiGroupCreateSerializer, ApiGroupUpdateSerializer, UserSerializer, CommentSerializer
+from .serializers import ChatSerializer, MessageSerializer, PostSerializer, PostReadSerializer, RegisterUserSerializer, ApiGroupCreateSerializer, ApiGroupUpdateSerializer, UserSerializer, CommentSerializer
 from .permissions import IsOwnerOrReadOnly, IsGroupAdminOrReadOnly
 
 User = get_user_model()
@@ -60,7 +60,7 @@ class PostList(generics.ListCreateAPIView):
         if username is not None:
             queryset = queryset.filter(user__username=username)
         return queryset
-    
+
     # def list(self, request):
     #     # Note the use of `get_queryset()` instead of `self.queryset`
     #     print(self.request)
@@ -82,7 +82,7 @@ class PostDetail(generics.RetrieveUpdateDestroyAPIView):
 
     def put(self, request, *args, **kwargs):
         return self.partial_update(request, *args, **kwargs)
-    
+
     # def get_serializer_class(self):
     #     if self.request.method == 'GET':
     #         return PostReadSerializer

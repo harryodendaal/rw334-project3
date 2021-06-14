@@ -30,7 +30,62 @@ export const FetchGroups = async () => {
 
     return response.data
 }
+export const FetchUsers = async () => {
+    const response = await axiosInstance.get('users/')
+    if(response.status!==200){
+        throw new Error("Something went wrong")
+    }
+    return response.data
+}
+export const FetchUser = ({id}) => {
+    const [user, setUser] = useState({})
+    const [isFriend, setIsFriend] = useState(false)
+    var user_id = GetUserId()
+    useEffect(() => {
+        axiosInstance.get(`users/${id}`)
+            .then(res=> {
+                console.log(res)
+                setUser(res.data)
+            })
+            .catch(err=> {
+                console.log(err)
+            })
+    }, [id])
+    useEffect(() => {
+        if(user?.friends?.includes(user_id)){
+            setIsFriend(true)
+            console.log('friend')
+        } else {
+            setIsFriend(false)
+            console.log("not friends")
+        }
+    }, user.friends, user_id)
 
+    const handleAddFriendClick = () => {
+        axiosInstance
+            .put(`users/${id}/`,{
+                friends:[...user.friends, user_id]
+
+            }).then((res)=> {
+                console.log(res)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+            window.location.reload(false)
+
+    }
+    return (
+        <div>
+            {(!isFriend) &&
+                <>
+                    <button onClick={handleAddFriendClick}>Add Friend</button>
+                </>
+            }
+            <h3>{user.username}</h3>
+        </div>
+    )
+}
 export const FetchPost = ({id, groupId}) => {
     const history = useHistory();
     var user_id = GetUserId()
@@ -142,12 +197,15 @@ export const FetchComment = ({id, postId}) => {
     
 }
 export const FetchGroup = ({id}) => {
+    var user_id = GetUserId()
     const [group, setGroup] = useState({})
+    const [isAdmin, setIsAdmin] = useState(false)
+    const [isUser, setIsUser] = useState(false)
 
     useEffect(() => {
         axiosInstance.get(`groups/${id}`)
             .then(res => {
-                console.log(res)
+                console.log(res.data)
                 setGroup(res.data)
             })
             .catch(err=> {
@@ -155,11 +213,64 @@ export const FetchGroup = ({id}) => {
             })
     },[id])
 
+    useEffect(() => {
+        //check if admin
+        if(group?.admins?.includes(user_id)){
+            setIsAdmin(true)
+        } else {
+            setIsAdmin(false)
+        }
+        //check if user
+        if(group?.users?.includes(user_id)){
+            setIsUser(true)
+        } else {
+            setIsUser(false)
+        }
 
+    }, [group.admins, user_id, group.users])
+
+    const handleDeleteGroupClick = () => {
+        axiosInstance
+            .delete(`groups/${id}`)
+            .then((res) => {
+                console.log(res)
+            })
+            .catch((err)=> {
+                console.log(err)
+            })
+            window.location.reload(false)
+    }
+
+    const handleJoinGroupClick = () => {
+        axiosInstance
+            .put(`groups/${id}/`,{
+                users:[...group.users,user_id]
+            })
+            .then((res)=>{
+               console.log(res)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+            window.location.reload(false)
+    }
 
     return (
         <div>
-            <h3>{group.name}</h3>            
+            <h3>{group.name}</h3>
+            {(!isUser) && <>
+                <button onClick={handleJoinGroupClick}>Join Group</button>
+            </>}
+            {isAdmin ?
+            <>
+                <Link to={`/groupForm/${id}`}>
+                    <button>Update</button>
+                </Link>
+                 <button onClick={handleDeleteGroupClick}>Delete</button>
+            </> : null}      
+            {isUser ? <button>
+                <Link to={`/postForm/${id}`}> Create Post</Link>
+            </button>:null }
         </div>
     )
 }
@@ -198,7 +309,6 @@ export const FetchPostsForGroup = ({id}) => {
         axiosInstance.get(`groups/${id}`)
             .then(res => {
                 setPosts(res.data.posts)
-                console.log("the group is: " ,res.data)
             })
             .catch(err=> {
                 console.log(err)

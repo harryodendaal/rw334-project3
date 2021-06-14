@@ -25,6 +25,9 @@ class IsGroupAdminOrReadOnly(permissions.BasePermission):
         # so we'll always allow GET, HEAD or OPTIONS requests.
         if request.method in permissions.SAFE_METHODS:
             return True
-
+        
+        # request method is put and only changing the users by adding users
+        if request.method == 'PUT' and 'name' not in request.data and 'admins' not in request.data:
+            return True
         # Write permissions are only allowed to the owner of the snippet.
         return request.user in obj.admins.all()
