@@ -2,10 +2,15 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { GetUserId } from "../../helper/getUserId";
 import search from "./img/search.png";
+import { useState } from "react";
 // import axiosInstance from "../../api/axios";
 import styled from "./navbar.module.css";
 
 const AuthenticatedLinks = ({ changeToken }) => {
+
+  const [searchUsers, setSearchUsers] = useState("");
+  const [searchGroups, setSearchGroups] = useState("");
+
   const handleClick = () => {
     // axiosInstance
     //   .post("logout")
@@ -26,8 +31,7 @@ const AuthenticatedLinks = ({ changeToken }) => {
     <div className={styled.container}>
       <ul class={styled.ul}>
         <li>
-          <Link to={`/user/${GetUserId()}`}>
-            {localStorage.getItem("username")}
+          <Link to={`/user/${GetUserId()}`}> {localStorage.getItem("username")}
           </Link>
         </li>
         <li>
@@ -40,9 +44,6 @@ const AuthenticatedLinks = ({ changeToken }) => {
           <Link to="/chat">Chat</Link>
         </li>
         <li>
-          <Link to="/search">Search</Link>
-        </li>
-        <li>
           <a href="/" onClick={handleClick}>
             Logout
           </a>
@@ -51,14 +52,9 @@ const AuthenticatedLinks = ({ changeToken }) => {
 
       <div className="search-container">
         <form action="search">
-          <input
-            className={styled.box}
-            type="text"
-            placeholder="Search..."
-            name="search"
-          ></input>
           <button class={styled.searchButton}>
             <img src={search} width="10" height="10" alt="search" />
+            <p class={styled.box}>Search</p>
           </button>
         </form>
       </div>
