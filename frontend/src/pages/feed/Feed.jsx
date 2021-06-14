@@ -69,7 +69,8 @@ export const Feed = () => {
                       <option value="user">User</option>
                       <option value="group">Group</option>
                     </select>
-                    <button className={styled.buttoN}>
+                    <input className={styled.specify} type="text" placeholder="Specify..." name="category"></input>
+                    <button className={styled.buttoN}>                  
                       <img src={filter} width="10" height="10" alt="filter" />
                     </button>
                   </form>
