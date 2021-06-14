@@ -26,6 +26,7 @@ export const Groups = () => {
                 <li key={group.id}>
                   <Link to={`/group/${group.id}`}>{group.name}</Link>
                 </li>
+                <h2></h2> {/* this lists them underneath each other, Do not remove */}
               </>
             ))}
           </ul>
