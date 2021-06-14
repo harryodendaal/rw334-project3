@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import generics
 from .models import Chat, Message, Post, Comment, ApiGroup
-from .serializers import ChatSerializer, MessageSerializer, PostSerializer, PostReadSerializer, RegisterUserSerializer, ApiGroupCreateSerializer, ApiGroupUpdateSerializer, UserSerializer, CommentSerializer
+from .serializers import ChatSerializer, MessageSerializer, PostCreateSerializer, PostSerializer, PostReadSerializer, RegisterUserSerializer, ApiGroupCreateSerializer, ApiGroupUpdateSerializer, UserSerializer, CommentSerializer
 from .permissions import IsOwnerOrReadOnly, IsGroupAdminOrReadOnly
 
 User = get_user_model()
@@ -36,6 +36,18 @@ class UserList(generics.ListCreateAPIView):
     serializer_class = UserSerializer
     # permission_classes = [IsAuthenticated]
 
+    def get_queryset(self):
+        queryset = User.objects.all()
+        # Optionally filters by username
+        username = self.request.query_params.get('username')
+        print(username)
+        if username is not None:
+            queryset = queryset.filter(username=username)
+        return queryset
+
+    
+
+
 
 class UserDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
@@ -51,26 +63,24 @@ class PostList(generics.ListCreateAPIView):
     permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
 
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+        group_name = serializer.validated_data['group']
+        group = ApiGroup.objects.filter(name=group_name)[0]
+        serializer.save(user=self.request.user, group=group)
 
     def get_queryset(self):
         queryset = Post.objects.all()
         # Optionally filters by username
         username = self.request.query_params.get('username')
+        print(username)
         if username is not None:
             queryset = queryset.filter(user__username=username)
         return queryset
 
-    # def list(self, request):
-    #     # Note the use of `get_queryset()` instead of `self.queryset`
-    #     print(self.request)
-    #     queryset = self.get_queryset()
-    #     serializer = PostListSerializer(queryset, many=True)
-    #     return Response(serializer.data)
-
     def get_serializer_class(self):
         if self.request.method == 'GET':
             return PostReadSerializer
+        elif self.request.method == 'POST':
+            return PostCreateSerializer
         else:
             return self.serializer_class
 

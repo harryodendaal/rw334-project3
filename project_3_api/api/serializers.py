@@ -39,6 +39,14 @@ class PostReadSerializer(serializers.ModelSerializer):
         fields = ['id', 'group', 'location', 'user', 'title',
                   'category', 'content', 'timestamp', 'updated', 'comments']
 
+class PostCreateSerializer(serializers.ModelSerializer):
+    user = serializers.ReadOnlyField(source='user.username')
+    comments = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    group = serializers.CharField(max_length=200)
+
+    class Meta:
+        model = Post
+        fields = ['id', 'group', 'location', 'user', 'title', 'category', 'content', 'timestamp', 'updated', 'comments']
 
 class CommentSerializer(serializers.ModelSerializer):
 
@@ -64,14 +72,16 @@ class RegisterUserSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
-
+    api_groups = ApiGroupCreateSerializer(many=True)
+    
     class Meta:
         model = User
-        fields = ['id', 'username', 'email', 'password', 'avatar', 'friends']
+        fields = ['id', 'username', 'email', 'password', 'avatar', 'friends', 'api_groups']
         # read_only_fields = ['id', 'username']
         extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):
+        validated_data.pop('friends', None)
         password = validated_data.pop('password', None)
         instance = self.Meta.model(**validated_data)
         if password is not None:

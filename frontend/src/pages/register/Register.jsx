@@ -44,17 +44,14 @@ export const Register = ({ changeToken }) => {
           }}
           onSubmit={(values) => {
             let data = new FormData();
-            data.append("photo1", values.photo1);
+            data.append("avatar", values.photo1);
+            data.append("username", values.username);
+            data.append("password", values.password);
+            data.append("email", values.email);
 
-            console.log(data);
             if (values.password === values.passwordConfirmation) {
               axiosInstance
-                .post("register/", {
-                  username: values.username,
-                  password: values.password,
-                  email: values.email,
-                  avatar: data,
-                })
+                .post("users/", data)
                 .then((res) => {
                   history.push("/login");
                   changeToken();
@@ -63,7 +60,7 @@ export const Register = ({ changeToken }) => {
                 })
                 .catch((e) => {
                   console.log(e);
-                  alert("Username already taken");
+                  alert(e);
                   // alert(e.response.data["message"]);
                 });
             } else {

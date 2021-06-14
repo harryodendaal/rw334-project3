@@ -19,6 +19,8 @@ export const PostForm = () => {
   let { groupId, postId } = useParams();
   const [updateForm, setUpdateForm] = useState(false);
   const [locationSelect, setLocationSelect] = useState('');
+  const [groupName, setGroupName] = useState('');
+  const [groups, setGroups] = useState([]);
   const [location, setLocation] = useState(null);
   const positionlng = useSelector((state) => state.counter.lng);
   const positionlat = useSelector((state) => state.counter.lat);
@@ -27,12 +29,34 @@ export const PostForm = () => {
     setLocationSelect(e.target.value);
   }
 
+  const handleGroupNameChange = (e) => {
+    setGroupName(e.target.selectedOptions[0].value);
+  }
+
   useEffect(() => {
     if (postId !== undefined) {
       setUpdateForm(true);
     }
   }, [postId]);
 
+  useEffect(() => {
+    // Get groups of user...
+    axiosInstance
+    .get('users/', {
+      params: {
+        username: localStorage.getItem("username")
+      }
+      
+    })
+    .then((res) => {
+      setGroups(res.data[0].api_groups);
+    })
+    .catch((e) => {
+      console.log(e);
+      alert("check console.log");
+    });
+
+  }, []);
 
   const history = useHistory();
 
@@ -52,6 +76,7 @@ export const PostForm = () => {
           validationSchema={postFormValidation}
           initialValues={{ title: "", category: "", content: "" }}
           onSubmit={(values) => {
+            values.group = groupName;
             console.log(values);
             if (updateForm) {
               axiosInstance
@@ -60,7 +85,6 @@ export const PostForm = () => {
                   category: values.category,
                   location: "POINT(" + positionlat + " " + positionlng + ")",
                   content: values.content,
-                  group: values.group,
                 })
                 .then((res) => {
                   history.push(`/group/${groupId}`);
@@ -143,14 +167,14 @@ export const PostForm = () => {
               />
               {errors.content && touched.content && errors.content}
               <b className={styled.b}>Group:</b>
-              <input
-                className={styled.inpuT}
-                type="text"
-                name="group"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.group}
-              />
+
+              <select name="group-names" id="group-names" onChange={handleGroupNameChange}>
+                  {groups?.map((group) => (
+                    <>
+                      <option value={group.name}>{group.name}</option>
+                    </>
+                  ))}
+              </select>
               <button class={styled.button} type="submit">
                 Submit
               </button>
