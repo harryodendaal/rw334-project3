@@ -34,11 +34,13 @@ li:hover {
 
 .ul {
   margin-left: 20%;
+  margin-right: 14%;
 }
 
 .box {
   display: inline;
-  margin-left: 10vw;
+  margin-left:2vw;
+  margin-right: 2vw;
 }
 
 .searchButton {
