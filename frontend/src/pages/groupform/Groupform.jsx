@@ -13,43 +13,43 @@ const groupFormValidation = Yup.object().shape({
 });
 
 export const GroupForm = () => {
-  let { id } = useParams();
+  let { groupid } = useParams();
   const [updateForm, setUpdateForm] = useState(false);
   const user_id = GetUserId();
 
   useEffect(() => {
-    if (id !== undefined) {
+    if (groupid !== undefined) {
+      console.log("hello");
       setUpdateForm(true);
     }
-  }, [id]);
+  }, [groupid]);
   const history = useHistory();
   return (
     <div className={styled.container}>
       <div className={styled.border}>
-        <h2 className={styled.h2}>{updateForm ? <h2 className={styled.h2}>Update Group</h2> : <h2 className={styled.h2}>Create Group</h2>}</h2>
+        <h2 className={styled.h2}>
+          {updateForm ? (
+            <h2 className={styled.h2}>Update Group</h2>
+          ) : (
+            <h2 className={styled.h2}>Create Group</h2>
+          )}
+        </h2>
         <Formik
           validationSchema={groupFormValidation}
           initialValues={{ name: "" }}
           onSubmit={(values) => {
             if (updateForm) {
-              // axiosInstance
-              //   .put(`comments/${id}/`, {
-              //     title: values.title,
-              //     category: values.category,
-              //     content: values.content,
-              //   })
-              //   .then((res) => {
-              //     // localStorage.setItem("access_token", res.data.access);
-              //     // localStorage.setItem("refresh_token", res.data.refresh);
-              //     // axiosInstance.defaults.headers["Authorization"] =
-              //     //   "JWT " + localStorage.getItem("access_token");
-              //     history.push(`/post/${res.data.id}`);
-              //     // changeToken();
-              //   })
-              //   .catch((e) => {
-              //     console.log(e);
-              //     alert("check console.log");
-              //   });
+              axiosInstance
+                .put(`groups/${groupid}/`, {
+                  name: values.name,
+                })
+                .then((res) => {
+                  history.push(`/group/${groupid}`);
+                })
+                .catch((e) => {
+                  console.log(e);
+                  alert("check console.log");
+                });
             } else {
               axiosInstance
                 .post("groups/", {
@@ -75,7 +75,7 @@ export const GroupForm = () => {
             handleBlur,
             isSubmitting,
           }) => (
-            <form onSubmit={handleSubmit} >
+            <form onSubmit={handleSubmit}>
               <b className={styled.b}>Name:</b>
               <input
                 className={styled.input}
@@ -88,7 +88,9 @@ export const GroupForm = () => {
               <br></br>
               {values.name && touched.name && errors.name}
 
-              <button className={styled.button} type="submit">Submit</button>
+              <button className={styled.button} type="submit">
+                Submit
+              </button>
             </form>
           )}
         </Formik>

@@ -9,7 +9,6 @@ export const Group = () => {
     <>
       <div>
         <h1>
-          {" "}
           <FetchGroup id={id} />
         </h1>
         <button>

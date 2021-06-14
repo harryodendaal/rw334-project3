@@ -142,12 +142,14 @@ export const FetchComment = ({id, postId}) => {
     
 }
 export const FetchGroup = ({id}) => {
+    var user_id = GetUserId()
     const [group, setGroup] = useState({})
+    const [isUserId, setIsUserId] = useState(false)
 
     useEffect(() => {
         axiosInstance.get(`groups/${id}`)
             .then(res => {
-                console.log(res)
+                console.log(res.data)
                 setGroup(res.data)
             })
             .catch(err=> {
@@ -155,11 +157,36 @@ export const FetchGroup = ({id}) => {
             })
     },[id])
 
+    useEffect(() => {
+        if(group?.admins?.includes(user_id)){
+            setIsUserId(true)
+        } else {
+            setIsUserId(false)
+        }
+    }, [group.admins, user_id])
 
+    const handleDeleteGroupClick = () => {
+        axiosInstance
+            .delete(`groups`)
+            .then((res) => {
+                console.log(res)
+            })
+            .catch((err)=> {
+                console.log(err)
+            })
+            window.location.reload(false)
+    }
 
     return (
         <div>
-            <h3>{group.name}</h3>            
+            <h3>{group.name}</h3>   
+            {isUserId ?
+            <>
+            <Link to={`/groupForm/${id}`}>
+            <button>Update</button>
+            </Link>
+            <button onClick={handleDeleteGroupClick}>Delete</button>
+            </> : null}         
         </div>
     )
 }
@@ -198,7 +225,6 @@ export const FetchPostsForGroup = ({id}) => {
         axiosInstance.get(`groups/${id}`)
             .then(res => {
                 setPosts(res.data.posts)
-                console.log("the group is: " ,res.data)
             })
             .catch(err=> {
                 console.log(err)

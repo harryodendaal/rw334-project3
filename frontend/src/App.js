@@ -50,7 +50,7 @@ function App() {
       <Route exact path="/group/:id">
         <Group/>
       </Route>
-      <Route exact path="/groupForm">
+      <Route exact path="/groupForm/:groupid?">
         <GroupForm/>
       </Route>
       <Route exact path="/commentForm/:postId/:commentId?">
