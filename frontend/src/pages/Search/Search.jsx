@@ -66,7 +66,7 @@ export const Search = () => {
       </div>
       <div className={styled.gridContainer}>
         <div className={styled.grid_item1}>
-          <h1 >Groups: </h1>
+          <h1 className={styled.heading}>Groups: </h1>
           <ul>
             {filteredGroups?.map((group) => (
               <>
@@ -79,17 +79,19 @@ export const Search = () => {
           </ul>
         </div>
         <div className={styled.grid_item2}>
-          <h1>Users: </h1>
-          {filteredUsers?.map((user) => (
-            <>
-              <li>
-                <Link to={`/user/${user.id}/${GetUserId()}`}>
-                  {user.username}
-                </Link>
-              </li>
-              <h2></h2>
-            </>
-          ))}
+          <h1 className={styled.heading}>Users: </h1>
+          <ul>
+            {filteredUsers?.map((user) => (
+              <>
+                <li>
+                  <Link to={`/user/${user.id}/${GetUserId()}`}>
+                    {user.username}
+                  </Link>
+                </li>
+                <h2></h2>
+              </>
+            ))}
+          </ul>
         </div>
       </div>
     </>
