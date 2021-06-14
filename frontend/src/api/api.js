@@ -30,6 +30,13 @@ export const FetchGroups = async () => {
 
     return response.data
 }
+export const FetchUsers = async () => {
+    const response = await axiosInstance.get('users/')
+    if(response.status!==200){
+        throw new Error("Something went wrong")
+    }
+    return response.data
+}
 
 export const FetchPost = ({id, groupId}) => {
     const history = useHistory();
@@ -172,7 +179,7 @@ export const FetchGroup = ({id}) => {
             setIsUser(false)
         }
 
-    }, [group.admins, user_id])
+    }, [group.admins, user_id, group.users])
 
     const handleDeleteGroupClick = () => {
         axiosInstance

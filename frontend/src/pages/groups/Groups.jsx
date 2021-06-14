@@ -1,7 +1,7 @@
-import { FetchGroups } from "../../api/api";
-import { Link } from "react-router-dom";
-import { useQuery } from "react-query";
 import { useEffect } from "react";
+import { useQuery } from "react-query";
+import { Link } from "react-router-dom";
+import { FetchGroups } from "../../api/api";
 import styled from "./groups.module.css";
 import img from "./img/group_icon.png";
 

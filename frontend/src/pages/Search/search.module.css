@@ -1,0 +1,16 @@
+.gridContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.grid_item1 {
+  height: 80vh;
+  border: 5px;
+  border-color: black;
+  border-style: solid;
+}
+.grid_item2 {
+  height: 80vh;
+  border: 5px;
+  border-color: black;
+  border-style: solid;
+}

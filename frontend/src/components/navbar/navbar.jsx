@@ -40,6 +40,9 @@ const AuthenticatedLinks = ({ changeToken }) => {
           <Link to="/chat">Chat</Link>
         </li>
         <li>
+          <Link to="/search">Search</Link>
+        </li>
+        <li>
           <a href="/" onClick={handleClick}>
             Logout
           </a>

@@ -56,12 +56,14 @@ function App() {
       <Route exact path="/commentForm/:postId/:commentId?">
         <CommentForm/>
       </Route>
-      <Route exact path="/search" component= {Search}>
-        <Search/>
-      </Route>
+
       <Route exact path="/user/:id">
         <User/>
       </Route>
+      <Route exact path='/search'>
+        <Search/>
+      </Route>
+
     </QueryClientProvider>
     </Router>
   );

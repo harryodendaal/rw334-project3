@@ -33,20 +33,23 @@ export const User = () => {
               if (email) {
                 updateObject["email"] = email;
               }
+              console.log(updateObject);
               axiosInstance
                 .put(`users/${id}/`, updateObject)
                 .then((res) => {
                   localStorage.setItem("username", res.data.username);
-                  if (username && email) {
-                    alert("updated Username");
+                  if (username !== "" && email !== "") {
+                    alert("updated Username and email");
                   } else if (username) {
                     alert("updated Username");
                   } else if (email) {
                     alert("updated Email");
                   }
+                  window.location.reload(false);
                 })
                 .catch((e) => {
-                  console.log(e);
+                  console.log(e.message);
+
                   alert("That username already exists");
                 });
             } else if (uploadOrDelete === "delete") {
