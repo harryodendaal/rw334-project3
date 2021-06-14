@@ -47,30 +47,33 @@ export const Search = () => {
   return (
     <>
       <div>
-        <h1>Search</h1>
-        <p>Users:</p>
-        <input
-          type="text"
-          placeholder="Search Users"
-          onChange={(e) => setSearchUsers(e.target.value)}
-        />
-        <p>Groups:</p>
-        <input
-          type="text"
-          placeholder="Search Groups"
-          onChange={(e) => setSearchGroups(e.target.value)}
-        />
+        <h1 className={styled.h1}>Search</h1>
+        <div className={styled.search}>
+          <p className={styled.p}>Users: <input
+            className={styled.box}
+            type="text"
+            placeholder="Search Users"
+            onChange={(e) => setSearchUsers(e.target.value)}
+          /> </p>
+          <p>Groups: <input
+            className={styled.box}
+            type="text"
+            placeholder="Search Groups"
+            onChange={(e) => setSearchGroups(e.target.value)}
+          /> </p>
+          
+        </div>
       </div>
       <div className={styled.gridContainer}>
         <div className={styled.grid_item1}>
-          <h1>Groups: </h1>
+          <h1 >Groups: </h1>
           <ul>
             {filteredGroups?.map((group) => (
               <>
                 <li key={group.id}>
                   <Link to={`/group/${group.id}`}>{group.name}</Link>
                 </li>
-                <br></br>
+                <h2></h2>
               </>
             ))}
           </ul>
@@ -84,7 +87,7 @@ export const Search = () => {
                   {user.username}
                 </Link>
               </li>
-              <br></br>
+              <h2></h2>
             </>
           ))}
         </div>
