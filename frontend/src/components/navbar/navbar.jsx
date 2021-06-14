@@ -75,9 +75,6 @@ export const Navbar = ({ token, changeToken }) => {
         ) : (
           <ul>
             <li>
-              <Link to="">Posts Feed</Link>
-            </li>
-            <li>
               <Link to="/register">Register</Link>
             </li>
 
