@@ -108,22 +108,23 @@ export const User = () => {
                   value={values.email}
                 />
                 {errors.email && touched.email && errors.email}
-                <label htmlFor="email" style={{ display: "block" }}>
+                <label className={styled.selectOption} htmlFor="email" style={{ display: "block" }}>
                   Select Operation
                 </label>
                 <select
+                  className={styled.option}
                   name="uploadOrDelete"
                   value={values.uploadOrDelete}
                   onChange={handleChange}
                   onBlur={handleBlur}
                 >
-                  <option value="" label="select operation">
+                  <option value="" label="Select operation">
                     Select Operation
                   </option>
-                  <option value="update" label="update">
+                  <option value="update" label="Update">
                     Update
                   </option>
-                  <option value="delete" label="delete">
+                  <option value="delete" label="Delete">
                     Delete
                   </option>
                 </select>
