@@ -11,7 +11,8 @@ const queryClient = new QueryClient()
 
 function App() {
   
-   const [token, setToken] = useState(false);
+  const [token, setToken] = useState(false);
+  
 
   const changeTokenState =() => {
     setToken(state => state = !state)
@@ -57,7 +58,7 @@ function App() {
         <CommentForm/>
       </Route>
 
-      <Route exact path="/user/:id">
+      <Route exact path="/user/:id/:friendId?">
         <User/>
       </Route>
       <Route exact path='/search'>

@@ -37,7 +37,55 @@ export const FetchUsers = async () => {
     }
     return response.data
 }
+export const FetchUser = ({id}) => {
+    const [user, setUser] = useState({})
+    const [isFriend, setIsFriend] = useState(false)
+    var user_id = GetUserId()
+    useEffect(() => {
+        axiosInstance.get(`users/${id}`)
+            .then(res=> {
+                console.log(res)
+                setUser(res.data)
+            })
+            .catch(err=> {
+                console.log(err)
+            })
+    }, [id])
+    useEffect(() => {
+        if(user?.friends?.includes(user_id)){
+            setIsFriend(true)
+            console.log('friend')
+        } else {
+            setIsFriend(false)
+            console.log("not friends")
+        }
+    }, user.friends, user_id)
 
+    const handleAddFriendClick = () => {
+        axiosInstance
+            .put(`users/${id}/`,{
+                friends:[...user.friends, user_id]
+
+            }).then((res)=> {
+                console.log(res)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+            window.location.reload(false)
+
+    }
+    return (
+        <div>
+            {(!isFriend) &&
+                <>
+                    <button onClick={handleAddFriendClick}>Add Friend</button>
+                </>
+            }
+            <h3>{user.username}</h3>
+        </div>
+    )
+}
 export const FetchPost = ({id, groupId}) => {
     const history = useHistory();
     var user_id = GetUserId()
