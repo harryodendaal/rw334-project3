@@ -13,6 +13,7 @@ export const  FetchPosts = async () => {
     return response.data
 }
 
+
 export const FetchComments = async () => {
     const response = await axiosInstance.get('comments/')
     if(response.status !== 200) {
@@ -132,6 +133,19 @@ export const FetchPost = ({id, groupId}) => {
                 {post.title}
                 {/* <Link to={`/post/${post.id}`}>{post.title}</Link> */}
             </h1>
+            <textarea
+                value={post.content}
+                cols="56"
+                rows="5"
+                readOnly
+            ></textarea>
+            <div>
+                <h4>Created by: {post.user}</h4>
+                <h4>From Group: {post.group}</h4>
+                <h4>Created: {post.timestamp}</h4>
+            </div>
+
+
             { isUserId ?
             <>
                 <button onClick={handleUpdatePostClick}>Update</button>
