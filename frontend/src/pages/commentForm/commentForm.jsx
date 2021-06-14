@@ -26,8 +26,8 @@ export const CommentForm = () => {
   return (
     <div className={styled.container}>
       <div className={styled.border}>
-        <h2>
-          {creatingComment ? <p>creating comment</p> : <p>updating comment</p>}
+        <h2 className={styled.heading}>
+          {creatingComment ? <p>Creating Comment</p> : <p>Updating Comment</p>}
         </h2>
         <Formik
           validationSchema={CommentFormValidation}
@@ -75,16 +75,17 @@ export const CommentForm = () => {
           }) => (
             <form onSubmit={handleSubmit} className={styled.container}>
               <b>Content:</b>
-              <input
+              <textarea
                 className={styled.input}
-                type="text"
+                cols="56"
+                rows="5"
                 name="content"
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.content}
               />
               {errors.content && touched.content && errors.content}
-              <button type="submit">Submit</button>
+              <button className={styled.button} type="submit">Submit</button>
             </form>
           )}
         </Formik>
