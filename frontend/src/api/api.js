@@ -144,7 +144,8 @@ export const FetchComment = ({id, postId}) => {
 export const FetchGroup = ({id}) => {
     var user_id = GetUserId()
     const [group, setGroup] = useState({})
-    const [isUserId, setIsUserId] = useState(false)
+    const [isAdmin, setIsAdmin] = useState(false)
+    const [isUser, setIsUser] = useState(false)
 
     useEffect(() => {
         axiosInstance.get(`groups/${id}`)
@@ -158,16 +159,24 @@ export const FetchGroup = ({id}) => {
     },[id])
 
     useEffect(() => {
+        //check if admin
         if(group?.admins?.includes(user_id)){
-            setIsUserId(true)
+            setIsAdmin(true)
         } else {
-            setIsUserId(false)
+            setIsAdmin(false)
         }
+        //check if user
+        if(group?.users?.includes(user_id)){
+            setIsUser(true)
+        } else {
+            setIsUser(false)
+        }
+
     }, [group.admins, user_id])
 
     const handleDeleteGroupClick = () => {
         axiosInstance
-            .delete(`groups`)
+            .delete(`groups/${id}`)
             .then((res) => {
                 console.log(res)
             })
@@ -177,16 +186,36 @@ export const FetchGroup = ({id}) => {
             window.location.reload(false)
     }
 
+    const handleJoinGroupClick = () => {
+        axiosInstance
+            .put(`groups/${id}/`,{
+                users:[...group.users,user_id]
+            })
+            .then((res)=>{
+               console.log(res)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+            window.location.reload(false)
+    }
+
     return (
         <div>
-            <h3>{group.name}</h3>   
-            {isUserId ?
+            <h3>{group.name}</h3>
+            {(!isUser) && <>
+                <button onClick={handleJoinGroupClick}>Join Group</button>
+            </>}
+            {isAdmin ?
             <>
-            <Link to={`/groupForm/${id}`}>
-            <button>Update</button>
-            </Link>
-            <button onClick={handleDeleteGroupClick}>Delete</button>
-            </> : null}         
+                <Link to={`/groupForm/${id}`}>
+                    <button>Update</button>
+                </Link>
+                 <button onClick={handleDeleteGroupClick}>Delete</button>
+            </> : null}      
+            {isUser ? <button>
+                <Link to={`/postForm/${id}`}> Create Post</Link>
+            </button>:null }
         </div>
     )
 }

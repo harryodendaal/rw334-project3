@@ -8,12 +8,7 @@ export const Group = () => {
   return (
     <>
       <div>
-        <h1>
-          <FetchGroup id={id} />
-        </h1>
-        <button>
-          <Link to={`/postForm/${id}`}> Create Post</Link>
-        </button>
+        <FetchGroup id={id} />
         <FetchPostsForGroup id={id} />
       </div>
     </>
