@@ -11,7 +11,7 @@ export const Map = (props) => {
             console.log(post.location.coordinates);
         });
     
-    }, []);
+    }, [props.data]);
 
     return (
         <MapContainer center={[props.data[0].location.coordinates[0], props.data[0].location.coordinates[1]]} zoom={13} scrollWheelZoom={false}>
