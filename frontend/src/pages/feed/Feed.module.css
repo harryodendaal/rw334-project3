@@ -66,6 +66,12 @@
 .buttoN {
     cursor: pointer;
     margin-bottom: 10px;
+    margin-left: 0.5%;
+}
+.specify {
+    cursor: text;
+    margin-bottom: 10px;
+    margin-left: 0.5%;
 }
 
 .h2 {
