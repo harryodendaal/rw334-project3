@@ -35,16 +35,7 @@ export const Feed = () => {
                   </button>
                   {/* <FetchPosts /> */}
                   <div>
-                    <ul>
-                      {data?.map((post) => (
-                        <>
-                          <li key={post.id}>
-                            <Link to={`/post/${post.id}`}>{post.title}</Link>
-                          </li>
-                          <br></br>
-                        </>
-                      ))}
-                    </ul>
+                    
                   </div>{" "}
                 </div>
               </div>
@@ -55,7 +46,8 @@ export const Feed = () => {
                 <h2 className={styled.h2}>Posts Feed</h2>
                 {mapVisible === true && <Map data={data} />}
                 <div class={styled.p}>
-                  <button onClick={toggleMap}>Toggle map</button>
+                  <button className={styled.button} onClick={toggleMap}>Toggle Map</button>
+                  <p></p>
                   <form>
                     <select
                       className={styled.dropdown}
@@ -74,20 +66,28 @@ export const Feed = () => {
                       <img src={filter} width="10" height="10" alt="filter" />
                     </button>
                   </form>
-                  <p>POSTS</p>
+                  {/*<p className={styled.p}>POSTS</p>*/}
                   <ul className={styled.unorderedList}>
                     {data?.map((post) => (
                       <>
                         <div className={styled.singleBox}>
-                          <h3>
-                            Created by:{post.user} From Group: {post.group}
-                          </h3>
-                          <h4>Created: {post.timestamp}</h4>
-                          <li key={post.id} className={styled.listitem}>
+                          <li key={post.id} className={styled.item}>
                             <Link to={`/post/${post.id}`}>{post.title}</Link>
                           </li>
+                          <p></p>
+                          <textarea
+                            className={styled.textarea}
+                            value={post.content}
+                            cols="40"
+                            readOnly
+                          ></textarea>
+                          <div className={styled.h4}>
+                            <h4>Created by: {post.user}</h4>
+                            <h4>From Group: {post.group}</h4>
+                            <h4>Created: {post.timestamp}</h4>
+                          </div>
                         </div>
-                        <br></br>
+                        <h2></h2>
                       </>
                     ))}
                   </ul>

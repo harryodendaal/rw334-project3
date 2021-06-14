@@ -6,16 +6,24 @@
   left: 19%
 }
 .grid_item1 {
-  height: 80vh;
+  max-height: fit-content;
   border: 5px;
   border-color: black;
   border-style: solid;
+  margin: 3%;
 }
 .grid_item2 {
-  height: 80vh;
+  max-height: fit-content;
   border: 5px;
   border-color: black;
   border-style: solid;
+  margin: 3%;
+}
+
+.heading{
+  margin-left: 3%;
+  font-family: "Lucida Console", monospace;
+  color: rgb(129, 2, 2);
 }
 
 .h1{
