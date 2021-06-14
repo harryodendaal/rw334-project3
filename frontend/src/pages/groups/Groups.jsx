@@ -3,14 +3,13 @@ import { Link } from "react-router-dom";
 import { useQuery } from "react-query";
 import { useEffect } from "react";
 import styled from "./groups.module.css";
-import img from "./img/group_icon.png"
-
+import img from "./img/group_icon.png";
 
 export const Groups = () => {
   const { data } = useQuery("FetchGroups", FetchGroups);
   useEffect(() => {
-    console.log(data)
-  }, [data])
+    console.log(data);
+  }, [data]);
   return (
     <>
       <div className={styled.container}>
@@ -27,7 +26,6 @@ export const Groups = () => {
                 <li key={group.id}>
                   <Link to={`/group/${group.id}`}>{group.name}</Link>
                 </li>
-                <h2></h2>
               </>
             ))}
           </ul>

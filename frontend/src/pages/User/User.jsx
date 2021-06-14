@@ -18,26 +18,36 @@ export const User = () => {
       <div className={styled.make}>
         <h2>{localStorage.getItem("username")} Profile</h2>
         <Formik
-          //   validationSchema={userValidation}
+          validationSchema={userValidation}
           initialValues={{
             username: "",
             email: "",
             uploadOrDelete: "",
           }}
           onSubmit={({ uploadOrDelete, username, email }) => {
-            console.log(username);
             if (uploadOrDelete === "update") {
+              var updateObject = {};
+              if (username) {
+                updateObject["username"] = username;
+              }
+              if (email) {
+                updateObject["email"] = email;
+              }
               axiosInstance
-                .put(`users/${id}/`, {
-                  username: username,
-                  email: email,
-                })
+                .put(`users/${id}/`, updateObject)
                 .then((res) => {
-                  console.log(res.data);
+                  localStorage.setItem("username", res.data.username);
+                  if (username && email) {
+                    alert("updated Username");
+                  } else if (username) {
+                    alert("updated Username");
+                  } else if (email) {
+                    alert("updated Email");
+                  }
                 })
                 .catch((e) => {
                   console.log(e);
-                  alert(e.message);
+                  alert("That username already exists");
                 });
             } else if (uploadOrDelete === "delete") {
               axiosInstance
@@ -75,7 +85,7 @@ export const User = () => {
                 onBlur={handleBlur}
                 value={values.username}
               />
-              {values.username && touched.username && errors.username}
+              {errors.username && touched.username && errors.username}
               <b>Email:</b>
               <input
                 className={styled.inpuT}

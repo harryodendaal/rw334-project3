@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
+import { GetUserId } from "../../helper/getUserId";
+import search from "./img/search.png";
 // import axiosInstance from "../../api/axios";
 import styled from "./navbar.module.css";
-import search from "./img/search.png";
-import { GetUserId } from "../../helper/getUserId";
 
 const AuthenticatedLinks = ({ changeToken }) => {
   const handleClick = () => {
@@ -55,7 +55,7 @@ const AuthenticatedLinks = ({ changeToken }) => {
             name="search"
           ></input>
           <button class={styled.searchButton}>
-            <img src={search} width="10" height="10" />
+            <img src={search} width="10" height="10" alt="search" />
           </button>
         </form>
       </div>

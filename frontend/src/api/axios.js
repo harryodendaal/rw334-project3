@@ -21,7 +21,6 @@ axiosInstance.interceptors.response.use(
 	},
 	async function (error) {
 		const originalRequest = error.config;
-        
 		if (typeof error.response === 'undefined') {
 			alert(
 				'A server/network error occurred. ' +
@@ -49,7 +48,7 @@ axiosInstance.interceptors.response.use(
 
 			// wonky stuff going on here
 			// was if(refreshtoken)
-			if (refreshToken !== 'undefined') {
+			if ( refreshToken) {
 				const tokenParts = JSON.parse(atob(refreshToken.split('.')[1]));
 				const now = Math.ceil(Date.now() / 1000);
 				console.log(tokenParts.exp);
