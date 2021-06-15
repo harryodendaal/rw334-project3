@@ -17,7 +17,7 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
 
 class IsGroupAdminOrReadOnly(permissions.BasePermission):
     """
-    Custom permission to only allow owners of an object to edit it.
+    Custom permission to only allow admins of the group to edit it.
     """
 
     def has_object_permission(self, request, view, obj):
@@ -29,5 +29,5 @@ class IsGroupAdminOrReadOnly(permissions.BasePermission):
         # request method is put and only changing the users by adding users
         if request.method == 'PUT' and 'name' not in request.data and 'admins' not in request.data:
             return True
-        # Write permissions are only allowed to the owner of the snippet.
+        # Write permissions are only allowed to the admins of the group.
         return request.user in obj.admins.all()

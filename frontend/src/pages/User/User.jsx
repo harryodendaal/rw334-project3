@@ -14,12 +14,15 @@ const userValidation = Yup.object().shape({
 export const User = () => {
   let { id, friendId } = useParams();
   const [viewing, setViewing] = useState(false);
+
   useEffect(() => {
     if (friendId !== undefined) {
       setViewing(true);
     }
   }, [friendId]);
+
   const history = useHistory();
+  
   return (
     <div className={styled.split}>
       <div className={styled.make}>
