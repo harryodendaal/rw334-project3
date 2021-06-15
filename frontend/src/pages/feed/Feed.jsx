@@ -94,7 +94,8 @@ export const Feed = () => {
                     >
                       <option value="desTime">Time (descending)</option>
                       <option value="ascTime">Time (ascending)</option>
-                      <option value="location">Location</option>
+                      <option value="locationr">Location:range</option>
+                      <option value="locationq">Location:quantity</option>
                       <option value="catagory">Catagory</option>
                       <option value="user">User</option>
                       <option value="group">Group</option>
