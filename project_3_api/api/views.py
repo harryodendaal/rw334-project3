@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model
+from django.contrib.gis.geos.point import Point
 from django.shortcuts import render
 from rest_framework import status
 from rest_framework.permissions import AllowAny, IsAuthenticated, IsAuthenticatedOrReadOnly
@@ -9,6 +10,8 @@ from rest_framework import generics
 from .models import Chat, Message, Post, Comment, ApiGroup
 from .serializers import ChatSerializer, MessageSerializer, PostCreateSerializer, PostSerializer, PostReadSerializer, RegisterUserSerializer, ApiGroupCreateSerializer, ApiGroupUpdateSerializer, UserSerializer, CommentSerializer
 from .permissions import IsOwnerOrReadOnly, IsGroupAdminOrReadOnly
+from .filters import filter
+
 
 User = get_user_model()
 
@@ -68,12 +71,18 @@ class PostList(generics.ListCreateAPIView):
 
     def get_queryset(self):
         queryset = Post.objects.all()
+        #print(self.request.__dict__)
+        filterby = self.request.query_params.get('country')
+        filterterm = self.request.query_params.get('category')
+        
+                
         # Optionally filters by username
-        username = self.request.query_params.get('username')
-        print(username)
-        if username is not None:
-            queryset = queryset.filter(user__username=username)
-        return queryset
+        #username = self.request.query_params.get('username')
+        #print(self.request.POST)
+        #if username is not None:
+        #    queryset = queryset.filter(user__username=username)
+        return filter(filterby, filterterm, queryset)
+        #return queryset
 
     def get_serializer_class(self):
         if self.request.method == 'GET':

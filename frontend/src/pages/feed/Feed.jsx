@@ -1,19 +1,56 @@
 import { FetchPosts } from "../../api/api";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useQuery } from "react-query";
 import styled from "./Feed.module.css";
 import filter from "./img/filter.png";
 import { Map } from "./Map.jsx";
+import axiosInstance from '../../api/axios';
 
 export const Feed = () => {
   const [mapVisible, setMapVisible] = useState(false);
   const { data } = useQuery("FetchPosts", FetchPosts);
 
+  const [posts, setPosts] = useState([]);
+  const [countrySelect, setCountrySelect] = useState('');
+  const [categorySelect, setCategorySelect] = useState('');
+
+  useEffect(() => {
+    setPosts(data)
+}, [data])
+
   const toggleMap = (e) => {
     console.log(mapVisible);
     setMapVisible(!mapVisible);
   };
+
+  const filterPost = (e) => {
+    axiosInstance
+    .get("posts/", {
+      params: 
+      {
+        country : countrySelect,
+        category : categorySelect,
+      },
+    })
+    .then((res) => {
+      setPosts(res.data)
+    })
+    .catch((e) => {
+      console.log(e);
+      alert(e);
+    });
+  };
+
+  const handleCategoryChange = (e) => {
+    setCategorySelect(e.target.value);
+  };
+
+  const handleCountryChange = (e) => {
+    setCountrySelect(e.target.selectedOptions[0].value);
+  };
+
+
 
   return (
     <>
@@ -53,22 +90,26 @@ export const Feed = () => {
                       className={styled.dropdown}
                       id="country"
                       name="country"
+                      onChange ={handleCountryChange}
                     >
                       <option value="desTime">Time (descending)</option>
                       <option value="ascTime">Time (ascending)</option>
-                      <option value="location">Location</option>
+                      <option value="locationr">Location:range</option>
+                      <option value="locationq">Location:quantity</option>
                       <option value="catagory">Catagory</option>
                       <option value="user">User</option>
                       <option value="group">Group</option>
                     </select>
-                    <input className={styled.specify} type="text" placeholder="Specify..." name="category"></input>
-                    <button className={styled.buttoN}>                  
+                    <input className={styled.specify} type="text" placeholder="Specify..." name="category" onChange ={handleCategoryChange}></input>
+
+
+                  </form>
+                  <button className={styled.buttoN} onClick={filterPost} type="submit">                  
                       <img src={filter} width="10" height="10" alt="filter" />
                     </button>
-                  </form>
-                  {/*<p className={styled.p}>POSTS</p>*/}
+                  <p>POSTS</p>
                   <ul className={styled.unorderedList}>
-                    {data?.map((post) => (
+                    {posts?.map((post) => (
                       <>
                         <div className={styled.singleBox}>
                           <li key={post.id} className={styled.item}>
