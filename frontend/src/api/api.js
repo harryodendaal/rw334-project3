@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { GetUserId } from '../helper/getUserId';
 import axiosInstance from './axios';
@@ -212,9 +212,11 @@ export const FetchComment = ({id, postId}) => {
 }
 export const FetchGroup = ({id}) => {
     var user_id = GetUserId()
+    const adminRef = useRef(null);
     const [group, setGroup] = useState({})
     const [isAdmin, setIsAdmin] = useState(false)
     const [isUser, setIsUser] = useState(false)
+    const [adminName, setAdminName] = useState('');
 
     useEffect(() => {
         axiosInstance.get(`groups/${id}`)
@@ -269,6 +271,47 @@ export const FetchGroup = ({id}) => {
             window.location.reload(false)
     }
 
+    const handleAdminChange = (e) => {
+        setAdminName(e.target.value);
+    }
+
+    const addAdmin = () => {
+        axiosInstance
+        .get('users/', {
+        params: {
+            username: adminName
+        }
+        
+        })
+        .then((res) => {
+            const adminId = res.data[0].id;
+            console.log(res.data[0]);
+            let admins = group.admins;
+            admins.push(adminId);
+            console.log('-----');
+            console.log(admins);
+            axiosInstance
+            .put(`groups/${id}/`, {
+                admins: admins
+            })
+            .then((res) => {
+                console.log(res.data);
+                setAdminName('');
+                console.log(adminRef);
+                adminRef.current.value = '';
+            })
+            .catch((e) => {
+                console.log(e);
+                alert("check console.log");
+            });
+        })
+        .catch((e) => {
+        console.log(e);
+        alert("check console.log");
+        });
+        
+    }
+
     return (
         <div>
             <h3>{group.name}</h3>
@@ -277,12 +320,15 @@ export const FetchGroup = ({id}) => {
             </>}
             {isAdmin ?
             <>
+                <input type="text" onChange={handleAdminChange} ref={adminRef}/> 
+                <button onClick={addAdmin}>Add admin</button>
                 <Link to={`/groupForm/${id}`}>
                     <button>Update</button>
                 </Link>
                  <button onClick={handleDeleteGroupClick}>Delete</button>
             </> : null}      
             {isUser ? <button>
+                
                 <Link to={`/postForm/${id}`}> Create Post</Link>
             </button>:null }
         </div>

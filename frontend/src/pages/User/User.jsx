@@ -14,6 +14,20 @@ const userValidation = Yup.object().shape({
 export const User = () => {
   let { id, friendId } = useParams();
   const [viewing, setViewing] = useState(false);
+  const [user, setUser] = useState('');
+
+  useEffect(() => {
+    axiosInstance.get(`users/${id}`)
+    .then((res) => {
+      console.log('-----');
+      console.log(res.data)
+      setUser(res.data);
+    })
+    .catch(err => {
+      console.log(err);
+    })
+  }, [id]);
+
 
   useEffect(() => {
     if (friendId !== undefined) {
@@ -111,6 +125,9 @@ export const User = () => {
                   value={values.email}
                 />
                 {errors.email && touched.email && errors.email}
+
+                <img className={styled.img} src={user.avatar} alt="" />
+
                 <label className={styled.selectOption} htmlFor="email" style={{ display: "block" }}>
                   Select Operation
                 </label>

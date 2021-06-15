@@ -40,7 +40,6 @@ class UserList(generics.ListCreateAPIView):
         queryset = User.objects.all()
         # Optionally filters by username
         username = self.request.query_params.get('username')
-        print(username)
         if username is not None:
             queryset = queryset.filter(username=username)
         return queryset
