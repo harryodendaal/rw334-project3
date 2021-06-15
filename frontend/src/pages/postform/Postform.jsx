@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import axiosInstance from "../../api/axios";
@@ -22,6 +22,7 @@ export const PostForm = () => {
   const [groupName, setGroupName] = useState('');
   const [groups, setGroups] = useState([]);
   const [location, setLocation] = useState(null);
+  const refSelect = useRef(null);
   const positionlng = useSelector((state) => state.counter.lng);
   const positionlat = useSelector((state) => state.counter.lat);
 
@@ -76,7 +77,8 @@ export const PostForm = () => {
           validationSchema={postFormValidation}
           initialValues={{ title: "", category: "", content: "" }}
           onSubmit={(values) => {
-            values.group = groupName;
+            // values.group = groupName;
+            values.group = refSelect.current.selectedOptions[0].value;
             console.log(values);
             if (updateForm) {
               axiosInstance
@@ -168,7 +170,7 @@ export const PostForm = () => {
               {errors.content && touched.content && errors.content}
               <b className={styled.b}>Group:</b>
 
-              <select name="group-names" id="group-names" onChange={handleGroupNameChange}>
+              <select name="group-names" id="group-names" ref={refSelect} onChange={handleGroupNameChange}>
                   {groups?.map((group) => (
                     <>
                       <option value={group.name}>{group.name}</option>

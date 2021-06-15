@@ -72,12 +72,12 @@ class RegisterUserSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
-    api_groups = ApiGroupCreateSerializer(many=True)
-    
+    api_groups = ApiGroupCreateSerializer(many=True, required=False)
+
     class Meta:
         model = User
         fields = ['id', 'username', 'email', 'password', 'avatar', 'friends', 'api_groups']
-        # read_only_fields = ['id', 'username']
+        # read_only_fields = ['id', '']
         extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):
